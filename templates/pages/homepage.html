@@ -1,0 +1,23 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Homepage {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h1>{{request.user.username}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
