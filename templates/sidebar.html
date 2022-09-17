@@ -1,0 +1,116 @@
+<!-- Sidebar -->
+<div class="sidebar sidebar-style-2 sidebarBG"> 	
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+
+        {% if request.user.is_authenticated %}	
+            <div class="user">
+                <div class="avatar-sm float-left mr-2">
+                    <img src="/static/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                        <span>
+                            {{ request.user.username }}
+                            <span class="user-level">
+                                {{ request.user.email }}
+                            </span>
+                            <span class="caret"></span>
+                        </span>
+                    </a>
+                    <div class="clearfix"></div>
+
+                    <div class="collapse in" id="collapseExample">
+                        <ul class="nav">
+                            <li>
+                                <a href="/logout/">
+                                    <span class="link-collapse">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% if request.user.doctorprofile_set.all %}
+            <ul class="nav nav-primary">
+                <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a  href="/doctor_homepage/">
+                        <i class="fas fa-home"></i>
+                        <p>Doctor Page</p>
+                    </a>
+                    <a  href="/appointments/">
+                        <i class="fas fa-home"></i>
+                        <p>Appointments</p>
+                    </a>
+                </li> 
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                </li>
+                <li class="mx-4 mt-2">
+                    <a target="_blank"
+                        href="https://github.com/KamaljeetSahoo/EczeCare" 
+                        class="btn btn-block github-btn">
+                        <span class="btn-label mr-2 "> <i class="fab fa-github"></i> </span>Github Repository</a> 
+                </li>
+            </ul>
+            {% else %}
+            <ul class="nav nav-primary">
+                <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a  href="/home/">
+                        <i class="fas fa-home"></i>
+                        <p>DashBoard</p>
+                    </a>
+                    <a  href="/analyse/">
+                        <i class="fas fa-question"></i>
+                        <p>Analyse</p>
+                    </a>
+                    <a  href="/insights/">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Insights</p>
+                    </a>
+                    <a  href="/ecze_image/">
+                        <i class="fas fa-camera"></i>
+                        <p>EczeImage</p>
+                    </a>
+                    <a  href="/triggers/">
+                        <i class="fas fa-hospital"></i>
+                        <p>Triggers</p>
+                    </a>
+                    <a  href="/request_appointment/">
+                        <i class="fas fa-user"></i>
+                        <p>Meet Your Doc</p>
+                    </a>
+                </li> 
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                </li>
+                <li class="mx-4 mt-2">
+                    <a target="_blank"
+                        href="https://github.com/KamaljeetSahoo/EczeCare" 
+                        class="btn btn-block github-btn">
+                        <span class="btn-label mr-2 "> <i class="fab fa-github"></i> </span>Github Repository</a> 
+                </li>
+            </ul>
+            {% endif %}
+        {% else %}
+            <ul class="nav nav-primary">
+                <li class="mx-4 mt-2">
+                    <a href="/login/"
+                        class="btn btn-danger btn-block">
+                        <span class="btn-label mr-2"> <i class="fa fa-user-plus"></i> </span>LOGIN</a> 
+                </li>
+                <li class="mx-4 mt-2">
+                    <a href="/register/" 
+                        class="btn btn-danger btn-block">
+                        <span class="btn-label mr-2"> <i class="fa fa-user-plus"></i> </span>SIGN UP</a> 
+                </li>
+            </ul>
+        {% endif %}	
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->
