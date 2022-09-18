@@ -7,15 +7,27 @@
 
 {% block content %}
 
+<div class="content">
     <div class="page-inner">
-        <div class="container mt-5">
-            <div class="card">
-                <div class="card-body">
-                    <h1>upload</h1>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Upload Prescription</h4>
+                    </div>
+
+                        <div class="card-body">
+                            <div class="container" style="width: 50%;">
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" id="formFile">
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock content %}
 
