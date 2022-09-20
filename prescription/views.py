@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import Prescription
 
 # Create your views here.
 def homepage(request):
@@ -9,16 +10,24 @@ def homepage(request):
 
 
 def uploadPrescription(request):
-
     if request.user.is_authenticated:
-        return render(request, 'pages/uploadPrescription.html')
+        if request.method == 'GET':
+            return render(request, 'pages/uploadPrescription.html')
+        elif request.method == 'POST':
+            image = request.FILES['prescription_image']
+            obj = Prescription(uploaded_by=request.user, image=image)
+            obj.save()
+            return redirect('prescriptions')
     else:
         return redirect('login')
 
 def viewPrescription(request):
 
     if request.user.is_authenticated:
-        return render(request, 'pages/viewPrescription.html')
+        context = {
+            'prescriptions' : Prescription.objects.all(),
+        }
+        return render(request, 'pages/viewPrescription.html', context=context)
     else:
         return redirect('login')
 

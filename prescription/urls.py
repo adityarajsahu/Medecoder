@@ -4,7 +4,7 @@ from .views import homepage,uploadPrescription,viewPrescription,Prescriptions,Da
 urlpatterns = [
     path('', homepage, name="home"),
     path('uploadPrescription/',uploadPrescription,name = 'upload'),
-    path('viewPrescription/',viewPrescription,name = 'viewPrescription'),
-    path('prescriptions/',Prescriptions,name = 'Prescriptions'),
-    path('dashboard/',Dashboard, name = 'Dashboard')
+    path('viewPrescription/',viewPrescription,name = 'prescriptions'),
+    path('prescriptions/',Prescriptions,name = 'Viewprescriptions'),
+    path('dashboard/',Dashboard, name = 'Dashboard'),
 ]

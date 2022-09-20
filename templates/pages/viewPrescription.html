@@ -12,12 +12,22 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
               <h4 class="card-title">View Prescription</h4>
             </div>
   
-            <div class="card-body">
-              
+            <div class="card-body row">
+              {% for prescription in prescriptions %}
+                <div class="card col-md-3 p-5 m-5">
+                  <div class="card-img mt-3">
+                    <img width="100%" alt="prescription_img" src="{{prescription.image.url}}">
+                  </div>
+                  <div class="card-header">
+                    Uploaded By: {{prescription.uploaded_by.username}}
+                    Uploaded On: {{prescription.uploaded_on}}
+                  </div>
+                </div>
+              {% endfor %}
             </div>
           </div>
         </div>

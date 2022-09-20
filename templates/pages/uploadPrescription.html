@@ -18,9 +18,13 @@
 
                         <div class="card-body">
                             <div class="container" style="width: 50%;">
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
-                                  </div>
+                                <div class="mb-3 card p-5 shadow-lg">
+                                    <form action="/uploadPrescription/" method="POST" class="text-center" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input class="form-control" type="file" name="prescription_image" accept="image/*">
+                                        <button type="submit" class="mt-5 btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
