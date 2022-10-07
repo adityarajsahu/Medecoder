@@ -89,6 +89,11 @@ pip install -r requirements.txt
 
 ## User Interface
 ![image](https://user-images.githubusercontent.com/86679234/194603063-6d7b7acb-3722-4c99-afe9-0da2f233ceb6.png)
+![image](https://user-images.githubusercontent.com/86679234/194603489-4844da61-c69c-4915-b864-0a3c9927ca10.png)
+![image](https://user-images.githubusercontent.com/86679234/194603557-3ff2da97-7c45-422a-99d2-b1571eca82a8.png)
+![image](https://user-images.githubusercontent.com/86679234/194603588-f79d7ce5-31ae-4b50-a3f2-0f3819175a2f.png)
+![image](https://user-images.githubusercontent.com/86679234/194603686-3c5c0799-42eb-4cac-bc66-da4e64b7aa61.png)
+
 
 ## Contributors
 ![image](https://user-images.githubusercontent.com/64356997/194586209-4085aa84-6e8a-4be8-b201-47cc9cfd5f6b.png)
