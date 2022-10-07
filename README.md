@@ -26,8 +26,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#further-improvement">Further Improvement</a></li>
     <li><a href="#contributors">Contributors</a></li>
   </ol>
 </details>
@@ -51,20 +49,9 @@ We have developed a web application that takes doctor's prescription image as in
 * [![PyTorch][pytorch-image]][pytorch-url]
 * [![PostgreSQL][postgresql-image]][postgresql-url]
 
+### User Interface
 
 
-
-<!-- MARKDOWN LINKS & IMAGES -->
-[Django-image]: https://img.shields.io/badge/django-000000?style=for-the-badge&logo=django&logoColor=white
-[Django-url]: https://www.djangoproject.com/
-[easyocr-image]: https://img.shields.io/badge/EasyOCR-20232A?style=for-the-badge&logo=easyocr&logoColor=61DAFB
-[easyocr-url]: https://github.com/JaidedAI/EasyOCR
-[pytorch-image]: https://img.shields.io/badge/PyTorch-35495E?style=for-the-badge&logo=pytorch&logoColor=4FC08D
-[pytorch-url]: https://pytorch.org/
-[postgresql-image]: https://img.shields.io/badge/PostgreSQL-4A4A55?style=for-the-badge&logo=postgresql&logoColor=white
-[postgresql-url]: https://www.postgresql.org/
-[Anaconda-image]: https://img.shields.io/badge/Anaconda-563D7C?style=for-the-badge&logo=anaconda&logoColor=white
-[Anaconda-url]: https://repo.anaconda.com/archive/Anaconda3-2022.05-Windows-x86_64.exe
 
 <!-- PREREQUISITES AND INSTALLATIONS -->
 ## Getting Started
@@ -102,3 +89,16 @@ pip install -r requirements.txt
 
 ## Contributors
 ![image](https://user-images.githubusercontent.com/64356997/194586209-4085aa84-6e8a-4be8-b201-47cc9cfd5f6b.png)
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[Django-image]: https://img.shields.io/badge/django-000000?style=for-the-badge&logo=django&logoColor=white
+[Django-url]: https://www.djangoproject.com/
+[easyocr-image]: https://img.shields.io/badge/EasyOCR-20232A?style=for-the-badge&logo=easyocr&logoColor=61DAFB
+[easyocr-url]: https://github.com/JaidedAI/EasyOCR
+[pytorch-image]: https://img.shields.io/badge/PyTorch-35495E?style=for-the-badge&logo=pytorch&logoColor=4FC08D
+[pytorch-url]: https://pytorch.org/
+[postgresql-image]: https://img.shields.io/badge/PostgreSQL-4A4A55?style=for-the-badge&logo=postgresql&logoColor=white
+[postgresql-url]: https://www.postgresql.org/
+[Anaconda-image]: https://img.shields.io/badge/Anaconda-563D7C?style=for-the-badge&logo=anaconda&logoColor=white
+[Anaconda-url]: https://repo.anaconda.com/archive/Anaconda3-2022.05-Windows-x86_64.exe
