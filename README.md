@@ -71,7 +71,7 @@ conda update conda
 ### Create Virtual Environment
 Set up a virtual environment
 ```
-conda create -n venv python=3.7
+conda create -n venv python=3.8
 ```
 ### Installation
 
@@ -80,6 +80,13 @@ Install dependencies in the virtual environment
 pip install -r requirements.txt
 ``` 
 
+Migrate Database and Run Server
+
+```
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+``` 
 ## Features
 
 * Handwritten prescription Digitizer - All data points as follows  will be extracted from from handwritten prescriptions available in variety of formats and compiled into a digital prescription in a common format . Printed data such as doctor's details will be identified from the prescription pad.
