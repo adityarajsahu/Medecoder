@@ -6,6 +6,13 @@
     <h3 align="center"><strong>MEDECODER</strong></h3>
 </div>
 
+
+Drive [Link](https://drive.google.com/drive/folders/1DMAMYevGo-9VnQH9aWVw3m8p7rgYQTVx?usp=sharing) For all Detailed Demonstration Videos\
+
+Detailed Drive [link](https://drive.google.com/drive/folders/1ERX8f61c84qE4wq6BxO0-LNwpX3V94T0?usp=sharing) for videos, sample dataset and custom labelled images
+
+Colab File [Link](https://colab.research.google.com/drive/1IHl6lvJBVxV8_cZEMxpM1vfRlLyaoC0m?usp=sharing) for model inference and named entity recognition
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -141,7 +148,11 @@ OUTPUT FORMAT -> Text, Bouding Box Coordinates, Confidence of each detection
 
 # DEMO VIDEOS
 
-https://user-images.githubusercontent.com/50160354/194619464-651572e6-1a35-4aa2-9294-2618f65e572c.mp4\
+
+https://user-images.githubusercontent.com/50160354/194622544-78a38e79-a510-40a4-b27e-f90f45e866e1.mp4
+
+
+
 
 Drive [Link](https://drive.google.com/drive/folders/1DMAMYevGo-9VnQH9aWVw3m8p7rgYQTVx?usp=sharing) For all Detailed Demonstration Videos\
 
