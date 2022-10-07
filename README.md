@@ -22,6 +22,7 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Create virtual environment</a></li>
+        <li><a href="#create-virtual-environment">Create virtual environment</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -70,8 +71,27 @@ We have developed a web application that takes doctor's prescription image as in
 To test the web application, you need to create a virtual environment and install the dependencies.
 
 ### Prerequisites 
-Install Anaconda Distribution 
-* [![Anaconda][Anaconda-image]][Anaconda-url]
+To test the web application, follow the instructions below and install the prerequisites.
+
+Install Anaconda Distribution <br>
+[![Anaconda][Anaconda-image]][Anaconda-url]
+
+Open Anaconda Prompt and Update conda environment
+```
+conda update conda
+```
+
+### Create Virtual Environment
+Set up a virtual environment
+```
+conda create -n venv python=3.7
+```
+### Installation
+
+Install dependencies in the virtual environment
+```
+pip install -r requirements.txt
+``` 
 
 ## Features
 
