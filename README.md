@@ -62,3 +62,23 @@ We have developed a web application that takes doctor's prescription image as in
 [pytorch-url]: https://pytorch.org/
 [postgresql-image]: https://img.shields.io/badge/PostgreSQL-4A4A55?style=for-the-badge&logo=postgresql&logoColor=white
 [postgresql-url]: https://www.postgresql.org/
+[Anaconda-image]: https://img.shields.io/badge/Anaconda-563D7C?style=for-the-badge&logo=anaconda&logoColor=white
+[Anaconda-url]: https://repo.anaconda.com/archive/Anaconda3-2022.05-Windows-x86_64.exe
+
+<!-- PREREQUISITES AND INSTALLATIONS -->
+## Getting Started
+To test the web application, you need to create a virtual environment and install the dependencies.
+
+### Prerequisites 
+Install Anaconda Distribution 
+* [![Anaconda][Anaconda-image]][Anaconda-url]
+
+## Features
+
+* Handwritten prescription Digitizer - All data points as follows  will be extracted from from handwritten prescriptions available in variety of formats and compiled into a digital prescription in a common format . Printed data such as doctor's details will be identified from the prescription pad.
+* Prescription Review Network - When a user uploads a photo of a prescription, our model will predict the contents with a certain confidence. If the confidence falls below a threshold the prescription should be sent to a network of pharmacists. 
+* Prescription Annotator - We intend to offer an interactive UI tool that will allow users to quickly and conveniently correct model predictions and prescription labels.
+* Pharmacist Dashboard - A pharmacist profile containing statistics like number of patients  served and successful contributions made for the "PRESCRIPTION REVIEWER".  Along with that they can also view their overall performance. 
+
+## Contributors
+![image](https://user-images.githubusercontent.com/64356997/194586209-4085aa84-6e8a-4be8-b201-47cc9cfd5f6b.png)
