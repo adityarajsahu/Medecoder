@@ -51,6 +51,15 @@ def singleView(request, prescription_id):
         context = {
             'prescription': Prescription.objects.get(id=prescription_id),
         }
-        return render(request, 'annotator/via.html', context=context)
+        return render(request, 'pages/singleView.html', context=context)
     else:
         return redirect('login')
+
+def annotatePrescription(request, prescription_id):
+    if request.user.is_authenticated:
+        context = {
+            'prescription': Prescription.objects.get(id=prescription_id),
+        }
+        return render(request, 'annotator/via.html', context=context)
+    else:
+        return redirect("login")

@@ -1,0 +1,46 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Homepage {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="page-inner">
+        <!-- Card -->
+        <h4 class="page-title">
+            Uploaded By: {{prescription.uploaded_by.username}}<br>
+            Uploaded On: {{prescription.uploaded_on}}
+        </h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-img">
+                        <img width="100%" src="{{prescription.image.url}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="d-flex justify-content-between">
+                    <a href="/annotatePrescription/{{prescription.id}}/">
+                        <button class="btn btn-success">EDIT</button>
+                    </a>
+                    <button class="btn btn-danger">DELETE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+
+
+
+{% endblock javascripts %}

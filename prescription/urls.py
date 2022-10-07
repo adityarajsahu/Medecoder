@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import homepage,uploadPrescription,viewPrescription,Prescriptions,Dashboard, singleView
+from .views import homepage,uploadPrescription,viewPrescription,Prescriptions,Dashboard, singleView, annotatePrescription
 
 urlpatterns = [
     path('', homepage, name="home"),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('prescriptions/',Prescriptions,name = 'Viewprescriptions'),
     path('dashboard/',Dashboard, name = 'Dashboard'),
     path('singleViewPrescription/<int:prescription_id>/', singleView, name='singleViewPres'),
+    path('annotatePrescription/<int:prescription_id>/', annotatePrescription, name='annotatePrescription'),
 ]
