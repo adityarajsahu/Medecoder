@@ -120,7 +120,7 @@ Text Detection (ROI-Region of Interest)
 ![image](https://user-images.githubusercontent.com/50160354/194614800-87df8758-f253-4364-9d53-d2d154f2cb51.png)\
 Text Extraction
 
-![image](https://user-images.githubusercontent.com/50160354/194615035-7198f3c3-dc0d-4b70-8aa4-5e9b02fa65eb.png)
+![image](https://user-images.githubusercontent.com/50160354/194615035-7198f3c3-dc0d-4b70-8aa4-5e9b02fa65eb.png)\
 OUTPUT FORMAT -> Text, Bouding Box Coordinates, Confidence of each detection
 
 
@@ -132,6 +132,13 @@ OUTPUT FORMAT -> Text, Bouding Box Coordinates, Confidence of each detection
 ## Contributors
 ![image](https://user-images.githubusercontent.com/64356997/194586209-4085aa84-6e8a-4be8-b201-47cc9cfd5f6b.png)\
 
+# DEMO VIDEOS
+
+https://user-images.githubusercontent.com/50160354/194619464-651572e6-1a35-4aa2-9294-2618f65e572c.mp4\
+
+Drive [Link](https://drive.google.com/drive/folders/1DMAMYevGo-9VnQH9aWVw3m8p7rgYQTVx?usp=sharing) For all Detailed Demonstration Videos\
+
+Detailed Drive [link](https://drive.google.com/drive/folders/1ERX8f61c84qE4wq6BxO0-LNwpX3V94T0?usp=sharing) for videos, sample dataset and custom labelled images
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [Django-image]: https://img.shields.io/badge/django-000000?style=for-the-badge&logo=django&logoColor=white
