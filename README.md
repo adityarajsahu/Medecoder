@@ -87,6 +87,9 @@ pip install -r requirements.txt
 * Prescription Annotator - We intend to offer an interactive UI tool that will allow users to quickly and conveniently correct model predictions and prescription labels.
 * Pharmacist Dashboard - A pharmacist profile containing statistics like number of patients  served and successful contributions made for the "PRESCRIPTION REVIEWER".  Along with that they can also view their overall performance. 
 
+## User Interface
+![image](https://user-images.githubusercontent.com/86679234/194603063-6d7b7acb-3722-4c99-afe9-0da2f233ceb6.png)
+
 ## Contributors
 ![image](https://user-images.githubusercontent.com/64356997/194586209-4085aa84-6e8a-4be8-b201-47cc9cfd5f6b.png)
 
