@@ -37,7 +37,11 @@
 We have developed a web application that takes doctor's prescription image as input and provides important information such as medicines prescribed, dosage, frequency, diagnostic test and doctor's details. During, the process the user is asked to validate the predictions. The validated data is stored in the database and our prediction model is trained using the stored data in order to fine tune for doctor's prescriptions.
 
 ### Our Solution
-
+* We considered employing two machine learning models to solve this issue. 
+* The first model, which extracts text from the prescription image, is an optical character recognition model. 
+* The required entities in the text that will be shown in the user interface of our web application are then located and classified by a named entity recognition model, which receives the extracted text as its input. 
+* The client will have the option to validate our model's predictions if our models are confident about the predictions, or alternatively the same prescription image will be given to a network of clients who will annotate it. 
+* Our models will be retrained after a predetermined time using the annotated data that will be saved in the database.
 
 ### Built With
 
