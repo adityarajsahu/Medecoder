@@ -88,16 +88,23 @@ def addMedication(request, prescription_id):
             res+=" "+r['region_attributes']['text']
         result = comprehendmedical.detect_entities(Text= res)
         entities = result['Entities']
-       
-       
         PROTECTED_HEALTH_INFORMATION = []
+        info = {}
         Medication = {}
         med=[]
         c = []
+        ph=[]
+        f=[]
         for key in entities:
             
             if key['Category'] == 'PROTECTED_HEALTH_INFORMATION':
-                PROTECTED_HEALTH_INFORMATION.append(key['Text'])
+                ph.append(key['Text'])
+                ph.append(key['Type'])
+                f.append(ph)
+                ph=[]
+
+
+                
             elif key['Category'] == 'MEDICATION':
                 med.append(key['Text'])
                 med.append('N.A')
@@ -122,7 +129,9 @@ def addMedication(request, prescription_id):
         prescription.save()
         context={
             'med':c,
+            'protected_health_info' : f
         }
+        print(PROTECTED_HEALTH_INFORMATION)
         return render(request, 'pages/medication.html',context=context)
     else:
         return redirect('login')

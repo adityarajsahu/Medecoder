@@ -15,7 +15,7 @@
                 <h4 class="page-title">Predict Prescriptions</h4>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Table Head States</div>
+                        <div class="card-title">Medications</div>
                     </div>
                     <div class="card-body">
                         <table class="table table-head-bg-success">
@@ -33,12 +33,7 @@
                                     {% for d in m %}
                                         <td>{{d}}</td>
                                     {% endfor %}
-                                    
-                                        
-                                        
-                                        
 
-                                    
                                 </tr>
                                 {% endfor %}
                                 
@@ -75,6 +70,64 @@
                         </table> -->
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Protected Health Information</div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-head-bg-success">
+                            <thead>
+                                <tr>
+                                    
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in protected_health_info %}
+                                <tr>
+                                    {% for d in m %}
+                                        <td>{{d}}</td>
+                                    {% endfor %}
+
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                        <!-- <table class="table table-head-bg-primary mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Medicine</th>
+                                    <th scope="col">Dosage</th>
+                                    <th scope="col">Frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
