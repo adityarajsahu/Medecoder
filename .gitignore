@@ -1,10 +1,12 @@
 ### Python ###
 
 uploadedPrescriptions
+sample.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+data.txt
 
 # C extensions
 *.so
