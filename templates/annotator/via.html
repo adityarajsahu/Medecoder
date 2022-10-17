@@ -3,46 +3,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <!--
-        VGG Image Annotator (via)
-        www.robots.ox.ac.uk/~vgg/software/via/
-
-        Copyright (c) 2016-2018, Abhishek Dutta, Visual Geometry Group, Oxford University and VIA Contributors..
-        All rights reserved.
-
-        Redistribution and use in source and binary forms, with or without
-        modification, are permitted provided that the following conditions are met:
-
-        Redistributions of source code must retain the above copyright notice, this
-        list of conditions and the following disclaimer.
-        Redistributions in binary form must reproduce the above copyright notice,
-        this list of conditions and the following disclaimer in the documentation
-        and/or other materials provided with the distribution.
-        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-        ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-        LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-        CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-        SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-        INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-        CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-        ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-        POSSIBILITY OF SUCH DAMAGE.
-      -->
-    <title>VGG Image Annotator</title>
+    
+    <title>Prescription Annotator</title>
     <meta name="author" content="Abhishek Dutta">
     <meta name="description" content="VIA is a standalone image annotator application packaged as a single HTML file (< 400 KB) that runs on most modern web browsers.">
-
-    <!--
-    Development of VIA is supported by the EPSRC programme grant
-    Seebibyte: Visual Search for the Era of Big Data (EP/M013774/1).
-    Using Google Analytics, we record the usage of this application.
-    This data is used in reporting of this programme grant.
-
-    If you do not wish to share this data, you can safely remove the
-    javascript code below.
-    -->
     <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -52,6 +16,7 @@
       //__ENABLED_BY_PACK_SCRIPT__ga('set', 'page', 'via-2.0.0.html');
       //__ENABLED_BY_PACK_SCRIPT__ga('send', 'pageview');
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/via.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -206,7 +171,7 @@
       <div class="menubar">
         <ul>
           <li onclick="show_home_panel()" style="cursor:pointer;">Home</li>
-          <li>Project
+          <!-- <li>Project
             <ul>
               <li onclick="project_open_select_project_file()" title="Load a VIA project (from a JSON file)">Load</li>
               <li onclick="project_save_with_confirm()" title="Save this VIA project (as a JSON file)">Save</li>
@@ -221,10 +186,10 @@
               <li onclick="sel_local_data_file('attributes')" title="Import region and file attributes from a JSON file">Import region/file attributes</li>
               <li onclick="project_save_attributes()" title="Export region and file attributes to a JSON file">Export region/file attributes</li>
             </ul>
-          </li>
+          </li> -->
 
-          <li>Annotation
-            <ul>
+          <li onclick="custom_download_all_region_data('json')">Save Annotation
+            <!-- <ul>
               <li onclick="download_all_region_data('csv')" title="Export annotations to a CSV file">Export Annotations (as csv)</li>
               <li onclick="download_all_region_data('json')" title="Export annotaitons to a JSON file">Export Annotations (as json)</li>
               <li onclick="download_all_region_data('coco', 'json')" title="Export annotaitons to COCO (http://cocodataset.org) format">Export Annotations (COCO format)</li>
@@ -236,10 +201,10 @@
               <li class="submenu_divider"></li>
               <li onclick="show_annotation_data()" title="Show a preview of annotations (opens in a new browser windows)">Preview Annotations</li>
               <li onclick="download_as_image()" title="Download an image containing the annotations">Download as Image</li>
-            </ul>
+            </ul> -->
           </li>
 
-          <li>View
+          <!-- <li>View
             <ul>
               <li onclick="image_grid_toggle()" title="Toggle between single image view and image grid view">Toggle image grid view</li>
               <li onclick="leftsidebar_toggle()" title="Show or hide the sidebar shown in left hand side">Toggle left sidebar</li>
@@ -265,37 +230,27 @@
               <li onclick="set_display_area_content(VIA_DISPLAY_AREA_CONTENT_NAME.PAGE_LICENSE)" title="View license of this application">License</li>
               <li onclick="set_display_area_content(VIA_DISPLAY_AREA_CONTENT_NAME.PAGE_ABOUT)" title="Show more details about this application">About VIA</li>
             </ul>
-          </li>
+          </li> -->
         </ul>
       </div> <!-- end of menubar -->
 
       <!-- Shortcut toolbar -->
       <div class="toolbar">
-        <svg onclick="project_open_select_project_file()" viewbox="0 0 24 24"><use xlink:href="#icon_open"></use><title>Open Project</title></svg>
+        <!-- <svg onclick="project_open_select_project_file()" viewbox="0 0 24 24"><use xlink:href="#icon_open"></use><title>Open Project</title></svg>
         <svg onclick="project_save_with_confirm()" viewbox="0 0 24 24"><use xlink:href="#icon_save"></use><title>Save Project</title></svg>
-        <svg onclick="settings_panel_toggle()" viewbox="0 0 24 24"><use xlink:href="#icon_settings"></use><title>Update Project Settings</title></svg>
+        <svg onclick="settings_panel_toggle()" viewbox="0 0 24 24"><use xlink:href="#icon_settings"></use><title>Update Project Settings</title></svg> -->
         <!--
         <svg onclick="" viewbox="0 0 24 24"><use xlink:href="#icon_checkbox"></use><title>Locate Files</title></svg>
         -->
 
-        <svg onclick="sel_local_data_file('annotations')" style="margin-left:1rem;" viewbox="0 0 24 24"><use xlink:href="#icon_fileupload"></use><title>Import Annotations from CSV</title></svg>
-        <svg onclick="download_all_region_data('csv')" viewbox="0 0 24 24"><use xlink:href="#icon_filedownload"></use><title>Download Annotations as CSV</title></svg>
 
-        <svg onclick="image_grid_toggle()" id="toolbar_image_grid_toggle" style="margin-left:1rem;" viewbox="0 0 24 24"><use xlink:href="#icon_gridon"></use><title>Switch to Image Grid View</title></svg>
         <svg onclick="annotation_editor_toggle_all_regions_editor()" viewbox="0 0 24 24"><use xlink:href="#icon_insertcomment"></use><title>Toggle Annotation Editor</title></svg>
 
-        <svg onclick="move_to_prev_image()" style="margin-left:1rem;" viewbox="0 0 24 24"><use xlink:href="#icon_prev"></use><title>Previous</title></svg>
-        <svg onclick="toggle_img_fn_list_visibility()" viewbox="0 0 24 24"><use xlink:href="#icon_list"></use><title>Toggle Filename List</title></svg>
-        <svg onclick="move_to_next_image()" viewbox="0 0 24 24"><use xlink:href="#icon_next"></use><title>Next</title></svg>
 
         <svg onclick="zoom_in()" style="margin-left:1rem;" viewbox="0 0 24 24"><use xlink:href="#icon_zoomin"></use><title>Zoom In</title></svg>
         <svg onclick="zoom_out()" viewbox="0 0 24 24"><use xlink:href="#icon_zoomout"></use><title>Zoom Out</title></svg>
 
-        <svg onclick="sel_all_regions()" viewbox="0 0 24 24" style="margin-left:1rem;"><use xlink:href="#icon_selectall"></use><title>Select All Regions</title></svg>
-        <svg onclick="copy_sel_regions()" viewbox="0 0 24 24"><use xlink:href="#icon_copy"></use><title>Copy Regions</title></svg>
-        <svg onclick="paste_sel_regions_in_current_image()" viewbox="0 0 24 24"><use xlink:href="#icon_paste"></use><title>Paste Regions</title></svg>
-        <svg onclick="paste_to_multiple_images_with_confirm()" viewbox="0 0 24 24"><use xlink:href="#icon_pasten"></use><title>Paste Region in Multiple Images</title></svg>
-        <svg onclick="del_sel_regions_with_confirm()" viewbox="0 0 24 24"><use xlink:href="#icon_pasteundo"></use><title>Undo Regions Pasted in Multiple Images</title></svg>
+        
         <svg onclick="del_sel_regions()" viewbox="0 0 24 24"><use xlink:href="#icon_close"></use><title>Delete Region</title></svg>
       </div>
       <!-- end of shortcut toolbar -->
@@ -320,49 +275,45 @@
         <div class="leftsidebar_accordion_panel show">
           <ul class="region_shape">
             <li id="region_shape_rect" class="selected" onclick="select_region_shape('rect')" title="Rectangle (Shortcut key 1)"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_rectangle"></use></svg></li>
-            <li id="region_shape_circle" onclick="select_region_shape('circle')" title="Circle (Shortcut key 2)"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_circle"></use></svg></li>
-            <li id="region_shape_ellipse" onclick="select_region_shape('ellipse')" title="Ellipse (Shortcut key 3)"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_ellipse"></use></svg></li>
             <li id="region_shape_polygon" onclick="select_region_shape('polygon')" title="Polygon (Shortcut key 4)"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_polygon"></use></svg></li>
-            <li id="region_shape_point" onclick="select_region_shape('point')" title="Point (Shortcut key 5)"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_point"></use></svg></li>
-            <li id="region_shape_polyline" onclick="select_region_shape('polyline')" title="Polyline (Shortcut key 6)"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_polyline"></use></svg></li>
           </ul>
           <div id="region_info" class="display_none">&nbsp;</div>
         </div>
 
-        <!-- Project -->
-        <button class="leftsidebar_accordion active" id="project_panel_title">Project</button>
-        <div class="leftsidebar_accordion_panel show" id="img_fn_list_panel">
-          <div id="project_info_panel">
-            <div class="row">
-              <span class="col"><label for="project_name">Name: </label></span>
-              <span class="col"><input type="text" value="" onchange="project_on_name_update(this)" id="project_name" title="VIA project name"></span>
+        <div style="display: none;">
+          <!-- Project -->
+          <button class="leftsidebar_accordion active" id="project_panel_title">Project</button>
+          <div class="leftsidebar_accordion_panel show" id="img_fn_list_panel">
+            <div id="project_info_panel">
+              <div class="row">
+                <span class="col"><label for="project_name">Name: </label></span>
+                <span class="col"><input type="text" value="" onchange="project_on_name_update(this)" id="project_name" title="VIA project name"></span>
+              </div>
             </div>
+            <div id="project_tools_panel">
+              <div class="button_panel" style="margin:0.1rem 0;" >
+                <select style="width:48%" id="filelist_preset_filters_list" onchange="img_fn_list_onpresetfilter_select()" title="Filter file list using predefined filters">
+                  <option value="all">All files</option>
+                  <option value="files_without_region">Show files without regions</option>
+                  <option value="files_missing_region_annotations">Show files missing region annotations</option>
+                  <option value="files_missing_file_annotations">Show files missing file annotations</option>
+                  <option value="files_error_loading">Files that could not be loaded</option>
+                  <option value="regex">Regular Expression</option>
+                  <option value="files_region_attribute">Filter by Region Attribute</option>
+                </select>
+                <input style="width:50%" type="text" placeholder="regular expression" oninput="img_fn_list_onregex()" id="img_fn_list_regex" title="Filter using regular expression">
+              </div>
+            </div>
+            <div id="img_fn_list"></div>
+            <p>
+              <div class="button_panel">
+                <span class="button" onclick="sel_local_images()" title="Add new file from local disk">Add Files</span>
+                <span class="button" onclick="project_file_add_url_with_input()" title="Add new file using URL">Add URL</span>
+                <span class="button" onclick="project_file_remove_with_confirm()" title="Remove selected file (i.e. file currently being shown) from project">Remove</span>
+              </div>
+            </p>
           </div>
-          <div id="project_tools_panel">
-            <div class="button_panel" style="margin:0.1rem 0;" >
-              <select style="width:48%" id="filelist_preset_filters_list" onchange="img_fn_list_onpresetfilter_select()" title="Filter file list using predefined filters">
-                <option value="all">All files</option>
-                <option value="files_without_region">Show files without regions</option>
-                <option value="files_missing_region_annotations">Show files missing region annotations</option>
-                <option value="files_missing_file_annotations">Show files missing file annotations</option>
-                <option value="files_error_loading">Files that could not be loaded</option>
-                <option value="regex">Regular Expression</option>
-                <option value="files_region_attribute">Filter by Region Attribute</option>
-              </select>
-              <input style="width:50%" type="text" placeholder="regular expression" oninput="img_fn_list_onregex()" id="img_fn_list_regex" title="Filter using regular expression">
-            </div>
-          </div>
-          <div id="img_fn_list"></div>
-          <p>
-            <div class="button_panel">
-              <span class="button" onclick="sel_local_images()" title="Add new file from local disk">Add Files</span>
-              <span class="button" onclick="project_file_add_url_with_input()" title="Add new file using URL">Add URL</span>
-              <span class="button" onclick="project_file_remove_with_confirm()" title="Remove selected file (i.e. file currently being shown) from project">Remove</span>
-            </div>
-          </p>
-        </div>
-
-        <!-- Attributes -->
+          <!-- Attributes -->
         <button class="leftsidebar_accordion" id="attributes_editor_panel_title">Attributes</button>
         <div class="leftsidebar_accordion_panel" id="attributes_editor_panel">
           <div class="button_panel" style="padding:1rem 0;">
@@ -478,6 +429,8 @@
             </tr>
           </table>
         </div>
+        </div>
+
 
       </div> <!-- end of leftsidebar -->
 
@@ -782,14 +735,55 @@ POSSIBILITY OF SUCH DAMAGE.
     <!-- DEMO SCRIPT AUTOMATICALLY INSERTED BY VIA PACKER SCRIPT -->
     <script src="{% static 'assets/js/via.js'%}"></script>
     <script language="javascript">
+      function custom_download_all_region_data(type, file_extension) {
+        if ( typeof(file_extension) === 'undefined' ) {
+          file_extension = type;
+        }
+        // Javascript strings (DOMString) is automatically converted to utf-8
+        // see: https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob
+        pack_via_metadata(type).then( function(data) {
+          var blob_attr = {type: 'text/'+file_extension+';charset=utf-8'};
+          var all_region_data_blob = new Blob(data, blob_attr);
+          console.log("custom function called")
+          $.ajax({
+            type: "POST",
+            url: '/addAnnotation/{{prescription.id}}/',
+            data: {
+              'csrfmiddlewaretoken': '{{csrf_token}}',
+              'annotation': data[0],
+            },
+            success: function(response){
+              console.log(response)
+              window.location.href = '/singleViewPrescription/{{prescription.id}}/'
+            }
+          });
+          var filename = 'via_export';
+          if(typeof(_via_settings) !== 'undefined' &&
+            _via_settings.hasOwnProperty('project') &&
+            _via_settings['project']['name'] !== '') {
+            filename = _via_settings['project']['name'];
+          }
+          if ( file_extension !== 'csv' || file_extension !== 'json' ) {
+            filename += '_' + type + '.' + file_extension;
+          }
+          //save_data_to_local_file(all_region_data_blob, filename);
+        }.bind(this), function(err) {
+          show_message('Failed to download data: [' + err + ']');
+        }.bind(this));
+      }
         $(document).ready(function (){
-            var img_id = project_file_add_url("http://localhost:8000{{prescription.image.url}}/");
+            var img_id = project_file_add_url("{{prescription.image.url}}/");
             var img_index = _via_image_id_list.indexOf(img_id);
             update_img_fn_list();
             //user_input_default_cancel_handler();
             setTimeout(function() {
                 _via_show_img(0)
             }, 3000)
+            setTimeout(function(){
+              var annot = "{{prescription.annotation|safe}}"
+              annot = annot.replace(/'/g, '"')
+              import_annotations_from_json(annot)
+            }, 5000)
         })
     </script>
   </body>
