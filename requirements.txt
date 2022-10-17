@@ -1,1 +1,6 @@
+boto3==1.24.90
 Django==4.0.5
+numpy==1.22.4
+opencv_contrib_python==4.6.0.66
+Pillow==9.2.0
+python-decouple==3.6
