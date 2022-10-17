@@ -1,0 +1,89 @@
+<!-- Specific JS goes HERE -->
+{% extends "layouts/base1.html" %}
+
+{% block title %} Homepage {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-title">Predict Prescriptions</h4>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Table Head States</div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-head-bg-success">
+                            <thead>
+                                <tr>
+                                    
+                                    <th scope="col">Medicine</th>
+                                    <th scope="col">Dosage</th>
+                                    <th scope="col">Frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in med %}
+                                <tr>
+                                    {% for d in m %}
+                                        <td>{{d}}</td>
+                                    {% endfor %}
+                                    
+                                        
+                                        
+                                        
+
+                                    
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                        <!-- <table class="table table-head-bg-primary mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Medicine</th>
+                                    <th scope="col">Dosage</th>
+                                    <th scope="col">Frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+	
+{% endblock javascripts %}

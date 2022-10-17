@@ -12,6 +12,26 @@
             <div class="card">
                 <div class="card-body">
                     <h1>{{request.user.username}}</h1>
+                    <h3>Your Uploaded Prescriptions</h3>
+                </div>
+                <div class="row">
+                    {% if request.user.prescription_set %}
+                    {% for prescription in request.user.prescription_set.all %}
+                    <div class="col-md-4">
+                        <div class="card text-center m-3 p-3">
+                            <div class="card-img">
+                                <img src="{{prescription.image.url}}" width="100%">
+                            </div>
+                            <div class="card-text">
+                                <a href="/singleViewPrescription/{{prescription.id}}/"><button class="btn btn-primary m-3">View</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                        <h4>You have not uploaded prescriptions</h4>
+                        <p>Start uploading your prescriptions <a href="/uploadedPrescriptions/">here</a></p>
+                    {% endif %}
                 </div>
             </div>
         </div>
