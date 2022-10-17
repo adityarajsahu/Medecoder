@@ -70,12 +70,12 @@ def Prescriptions(request):
     else:
         return redirect('login')
 
-def Dashboard(request):
+# def Dashboard(request):
 
-    if request.user.is_authenticated:
-        return render(request, 'pages/dashboard.html')
-    else:
-        return redirect('login')
+#     if request.user.is_authenticated:
+#         return render(request, 'pages/dashboard.html')
+#     else:
+#         return redirect('login')
 
 def addMedication(request, prescription_id):
     if request.user.is_authenticated:
