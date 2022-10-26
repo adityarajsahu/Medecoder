@@ -83,11 +83,6 @@ def addMedication(request, prescription_id):
         url = prescription.image.url+"/-1"
         res = ''
         
-        for r in annotation[url]['regions']:
-            res+=" "+r['region_attributes']['text']
-        print("Extracted Text =====> ", res)
-        result = comprehendmedical.detect_entities(Text= res)
-        entities = result['Entities']
         PROTECTED_HEALTH_INFORMATION = []
         info = {}
         Medication = {}
@@ -98,42 +93,50 @@ def addMedication(request, prescription_id):
         test_treatment = []
         medicalCondition = []
         Anatomy = []
-        # print(entities)
-        for key in entities:
+
+        if len(annotation[url]['regions']):
+            for r in annotation[url]['regions']:
+                res+=" "+r['region_attributes']['text']
+            print("Extracted Text =====> ", res)
+            result = comprehendmedical.detect_entities(Text= res)
+            entities = result['Entities']
             
-            if key['Category'] == 'PROTECTED_HEALTH_INFORMATION':
-                ph.append(key['Text'])
-                ph.append(key['Type'])
-                f.append(ph)
-                ph=[]
-
-            elif key['Category'] == 'MEDICATION':
-                med.append(key['Text'])
-                med.append('N.A')
-                med.append('N.A.')
+            # print(entities)
+            for key in entities:
                 
-                dosage = -1
-                frequency = -1
-                if 'Attributes' in key:
-                    for i in key['Attributes']:
-                        if i['Type'] == 'DOSAGE':
-                            dosage = i['Text']
-                            med[1]=i['Text']
-                        elif i['Type'] == 'FREQUENCY':
-                            frequency =  i['Text']
-                            med[2]=i['Text']
-                    c.append(med)
-                    med=[]
+                if key['Category'] == 'PROTECTED_HEALTH_INFORMATION':
+                    ph.append(key['Text'])
+                    ph.append(key['Type'])
+                    f.append(ph)
+                    ph=[]
 
-                    if key['Text'] not in Medication:
-                        Medication[key['Text']] = [dosage,frequency]
+                elif key['Category'] == 'MEDICATION':
+                    med.append(key['Text'])
+                    med.append('N.A')
+                    med.append('N.A.')
+                    
+                    dosage = -1
+                    frequency = -1
+                    if 'Attributes' in key:
+                        for i in key['Attributes']:
+                            if i['Type'] == 'DOSAGE':
+                                dosage = i['Text']
+                                med[1]=i['Text']
+                            elif i['Type'] == 'FREQUENCY':
+                                frequency =  i['Text']
+                                med[2]=i['Text']
+                        c.append(med)
+                        med=[]
 
-            elif  key['Category'] == 'TEST_TREATMENT_PROCEDURE':
-                test_treatment.append(key['Text'])
-            elif key['Category'] == 'MEDICAL_CONDITION':
-                medicalCondition.append(key['Text'])
-            elif key['Category'] == 'ANATOMY':
-                Anatomy.append(key['Text'])
+                        if key['Text'] not in Medication:
+                            Medication[key['Text']] = [dosage,frequency]
+
+                elif  key['Category'] == 'TEST_TREATMENT_PROCEDURE':
+                    test_treatment.append(key['Text'])
+                elif key['Category'] == 'MEDICAL_CONDITION':
+                    medicalCondition.append(key['Text'])
+                elif key['Category'] == 'ANATOMY':
+                    Anatomy.append(key['Text'])
 
         prescription.medication = Medication
         prescription.save()
