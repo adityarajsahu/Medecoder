@@ -163,16 +163,16 @@ def singleView(request, prescription_id):
         prescription = Prescription.objects.get(id=prescription_id)
         annotation = Prescription.objects.get(id=prescription_id).annotation
         url = prescription.image.url+"/-1"
-        extracted_text = ''
-        
+        confidence = 0
         for r in annotation[url]['regions']:
-            extracted_text+=" "+r['region_attributes']['text']
-        print("Extracted Text =====> ", extracted_text)
+            confidence += r['region_attributes']['confidence']
+        
+        confidence /= len(annotation[url]['regions'])
 
         context = {
             'prescription': Prescription.objects.get(id=prescription_id),
             'predicted':p,
-            'extracted_text' : extracted_text
+            'overall_confidence': confidence
         }
         return render(request, 'pages/singleView.html', context=context)
     else:
@@ -220,7 +220,10 @@ def predictPrescription(request, prescription_id):
                     'Bytes': document.read(),
                 },
                 FeatureTypes=["FORMS"])
+
+        print(response)
         preds = convert(response,img,img.split('/')[-1])
+        print(preds)
         prescription = Prescription.objects.get(id=prescription_id)
         prescription.annotation= preds
         prescription.save()

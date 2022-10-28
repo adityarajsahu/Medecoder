@@ -37,7 +37,8 @@ def convert(aws_response, image_path, image_name):
                     "height": int(extracted_data["Geometry"]["BoundingBox"]["Height"] * height)
                 },
                 "region_attributes": {
-                    "text": remove_single_quote(extracted_data["Text"])
+                    "text": remove_single_quote(extracted_data["Text"]),
+                    "confidence": extracted_data["Confidence"]
                 }
             }
             formatted_json[url]["regions"].append(new_dict)
