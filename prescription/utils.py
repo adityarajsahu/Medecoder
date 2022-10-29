@@ -82,7 +82,7 @@ def viewAnnotation(annotation, image_path):
         2,
         cv2.LINE_AA)
 
-    return numpyImg_to_base64img(img), numpyImg_to_base64img(digitized_img)
+    return numpyImg_to_base64img(img), numpyImg_to_base64img(digitized_img), digitized_img
 
 def to_data_uri(pil_img):
     data = BytesIO()
