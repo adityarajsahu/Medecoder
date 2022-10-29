@@ -172,7 +172,7 @@ def singleView(request, prescription_id):
         context = {
             'prescription': Prescription.objects.get(id=prescription_id),
             'predicted':p,
-            'overall_confidence': confidence
+            'overall_confidence': round(confidence,2)
         }
         return render(request, 'pages/singleView.html', context=context)
     else:
