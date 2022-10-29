@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import Prescription
-import re
 from django.http import JsonResponse
 import json
 from .utils import viewAnnotation
@@ -8,10 +7,13 @@ from .utils import viewAnnotation
 import boto3
 from .utils import convert
 from decouple import config
+from PIL import Image
+import img2pdf
+import os
+
 ACCESS_KEY_ID = config('ACCESS_KEY_ID')
 ACCESS_SECRET_KEY = config('ACCESS_SECRET_KEY')
 s3 = boto3.client('s3',aws_access_key_id = ACCESS_KEY_ID,aws_secret_access_key = ACCESS_SECRET_KEY)
-s3 = boto3.client('s3',aws_access_key_id=ACCESS_KEY_ID,aws_secret_access_key= ACCESS_SECRET_KEY,)
 textract = boto3.client('textract',aws_access_key_id=ACCESS_KEY_ID,aws_secret_access_key = ACCESS_SECRET_KEY, region_name='us-west-2')
 BUCKET_NAME = config('BUCKET_NAME')
 comprehendmedical = boto3.client('comprehendmedical', aws_access_key_id=ACCESS_KEY_ID,
@@ -48,17 +50,35 @@ def viewPrescription(request):
     else:
         return redirect('login')
 
+digitised_prescriptionImage_dir ='DigitizedPrescriptionImage/'
+digitised_prescriptionPdf_dir ='DigitizedPrescriptionPdf/'
+
 def visualizeAnnotation(request, prescription_id):
     if request.user.is_authenticated:
         annotation = None
         prescription = Prescription.objects.get(id=prescription_id)
         annotation = prescription.annotation
-        annotated_image, digitized_image = viewAnnotation(annotation, image_path = prescription.image.url)
+        annotated_image, digitized_image,x = viewAnnotation(annotation, image_path = prescription.image.url)
+        
+        url = prescription.image.url
+        print(url,"===========>")
+        url = url.split('/')[-1]
+        im = Image.fromarray(x)
+        im.save(os.path.join(digitised_prescriptionImage_dir+str(url)))
+
+        pdfdata = img2pdf.convert(digitised_prescriptionImage_dir+url)
+        file = open(digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf','wb')
+        file.write(pdfdata)
+        file.close()
+
         context = {
-            'prescription':prescription,
+            'prescription': prescription,
             'annotated_image_uri': annotated_image,
             'digitised_image_uri': digitized_image,
+            'pdf_path' : os.path.join(digitised_prescriptionPdf_dir ,  url.split('.')[0]+'.pdf'),
+            'pdf_name' : url.split('.')[0]+'.pdf'
         }
+
         return render(request, 'pages/visualise.html', context=context)
     else:
         return redirect('login')
