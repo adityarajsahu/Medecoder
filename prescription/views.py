@@ -71,12 +71,16 @@ def visualizeAnnotation(request, prescription_id):
         file.write(pdfdata)
         file.close()
 
+        prescription.digitzedImagePdf = digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf'
+        prescription.save()
+        print(prescription.digitzedImagePdf,"=======================================")
         context = {
             'prescription': prescription,
             'annotated_image_uri': annotated_image,
             'digitised_image_uri': digitized_image,
-            'pdf_path' : os.path.join(digitised_prescriptionPdf_dir ,  url.split('.')[0]+'.pdf'),
-            'pdf_name' : url.split('.')[0]+'.pdf'
+            'digitised_image_uri_pdf' : prescription.digitzedImagePdf.url,
+            # 'pdf_path' : os.path.join(digitised_prescriptionPdf_dir ,  url.split('.')[0]+'.pdf'),
+            # 'pdf_name' : url.split('.')[0]+'.pdf'
         }
 
         return render(request, 'pages/visualise.html', context=context)
