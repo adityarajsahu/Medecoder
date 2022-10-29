@@ -1,32 +1,30 @@
-{% extends "layouts/base1.html" %}
-
-{% block title %} Homepage {% endblock title %}
+{% extends "layouts/base1.html" %} {% block title %} Homepage {% endblock title%}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="content">
-    <div class="page-inner">
-        <div class="row">                
-                <div class="col-md-6">
-                    <div class="card p-5">
-                        <div class="card-img">
-                            <img src="{{annotated_image_uri}}" width="100%" alt="pres">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 p-5">
-                    <div class="card">
-                        <div class="card-img">
-                            <img src="{{digitised_image_uri}}" width="100%" alt="pres">
-                        </div>
-                    </div>
-                </div>
+  <div class="page-inner">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card p-5">
+          <div class="card-img">
+            <img src="{{annotated_image_uri}}" width="100%" alt="pres" />
+          </div>
         </div>
+      </div>
+      <div class="col-md-6 p-5">
+        <div class="card">
+          <div class="card-img">
+            <img src="{{digitised_image_uri}}" width="100%" alt="pres" />
+          </div>
+          
+        </div>
+        <a href="Medecoder\DigitizedPrescriptionPdf\p5_j4CQL2G.pdf" download="{{pdf_name}}"><button class="btn btn-primary" >Download PDF</button></a>
+      </div>
     </div>
   </div>
+</div>
 
 {% endblock content %}
 
