@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from numpy import array
 from .models import Prescription
 from django.http import JsonResponse
 import json
@@ -86,16 +87,16 @@ def visualizeAnnotation(request, prescription_id):
         img = cv2.imread(str(prescription.image))
         height, width = img.shape[0], img.shape[1]
 
-        pdf = FPDF('P','mm',(height,width))
+        pdf = FPDF('P','mm',[width,height])
         pdf.add_page()
         for annotation in annotations[prescription.image.url+"/-1"]['regions']:
             height_of_box = annotation["shape_attributes"]["height"]
             width_of_box = annotation["shape_attributes"]["width"]
             fontScale = height_of_box / width_of_box
             if fontScale > 0.5:
-                fontScale = 1.44
+                fontScale = 1.5
             else:
-                fontScale = 0.72
+                fontScale = 1
             pdf.set_font("Arial", size = 64*fontScale)
             pdf.set_xy(annotation['shape_attributes']['x'],annotation['shape_attributes']['y']/1.33)
             pdf.cell(annotation['shape_attributes']['width'], annotation['shape_attributes']['height'], txt = annotation['region_attributes']['text'])            
