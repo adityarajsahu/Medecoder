@@ -21,9 +21,26 @@
               </form>
             </div>
             <div class="card-body row">
-              {% for prescription in prescriptions %}
-                {% if prescription.uploaded_by.username == searched %}
-                <div class="card col-md-3 p-5 m-5">
+              {% if searched %}
+                {% for prescription in prescriptions %}
+                  {% if prescription.uploaded_by.username == searched %}
+                  <div class="card col-md-3 m-5 br-5" style="border-radius: 2em;">
+                    <div class="card-img mt-3">
+                      <img width="100%" alt="prescription_img" src="{{prescription.image.url}}">
+                    </div>
+                    <div class="card-header">
+                      Uploaded By: {{prescription.uploaded_by.username}}
+                      Uploaded On: {{prescription.uploaded_on}}
+                    </div>
+                    <a style="text-align: center;" href="/singleViewPrescription/{{prescription.id}}/">
+                      <button class="btn btn-primary mb-3">View</button>
+                    </a>
+                  </div>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                {% for prescription in prescriptions %}
+                <div class="card col-md-3 m-5 br-5" style="border-radius: 2em;">
                   <div class="card-img mt-3">
                     <img width="100%" alt="prescription_img" src="{{prescription.image.url}}">
                   </div>
@@ -32,11 +49,11 @@
                     Uploaded On: {{prescription.uploaded_on}}
                   </div>
                   <a style="text-align: center;" href="/singleViewPrescription/{{prescription.id}}/">
-                    <button class="btn btn-primary">View</button>
+                    <button class="btn btn-primary mb-3">View</button>
                   </a>
                 </div>
-                {% endif %}
-              {% endfor %}
+                {% endfor %}              
+              {% endif %}
             </div>
           </div>
         </div>
