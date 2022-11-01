@@ -4,6 +4,8 @@ uploadedPrescriptions
 sample.json
 DigitizedPrescriptionImage
 DigitizedPrescriptionPdf
+DigitizedPrescriptionImagePdf
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

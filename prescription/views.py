@@ -57,29 +57,33 @@ def viewPrescription(request):
         return redirect('login')
 
 digitised_prescriptionImage_dir ='DigitizedPrescriptionImage/'
-digitised_prescriptionPdf_dir ='DigitizedPrescriptionPdf/'
+digitised_prescriptionImagePdf_dir ='DigitizedPrescriptionImagePdf/'
+digitised_prescriptionPdf_dir = 'DigitizedPrescriptionPdf/'
 
 def visualizeAnnotation(request, prescription_id):
+
     if request.user.is_authenticated:
 
-        annotations = None
         prescription = Prescription.objects.get(id=prescription_id)
         annotations = prescription.annotation
         annotated_image, digitized_image,x = viewAnnotation(annotations, image_path = prescription.image.url)
         
+        #img2pdf Code
         url = prescription.image.url
-        print(url,"===========>")
         url = url.split('/')[-1]
         im = Image.fromarray(x)
         im.save(os.path.join(digitised_prescriptionImage_dir+str(url)))
-
         pdfdata = img2pdf.convert(digitised_prescriptionImage_dir+url)
-        file = open(digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf','wb')
+        file = open(digitised_prescriptionImagePdf_dir + url.split('.')[0]+'.pdf','wb')
         file.write(pdfdata)
         file.close()
 
+        prescription.digitzedImagePdf = digitised_prescriptionImagePdf_dir + url.split('.')[0]+'.pdf'
+        prescription.save()
+
+        #fpdf code
+
         img = cv2.imread(str(prescription.image))
-        
         height, width = img.shape[0], img.shape[1]
 
         pdf = FPDF('P','mm',(height,width))
@@ -94,19 +98,21 @@ def visualizeAnnotation(request, prescription_id):
                 fontScale = 0.72
             pdf.set_font("Arial", size = 64*fontScale)
             pdf.set_xy(annotation['shape_attributes']['x'],annotation['shape_attributes']['y']/1.33)
-            pdf.cell(annotation['shape_attributes']['width'], annotation['shape_attributes']['height'], txt = annotation['region_attributes']['text'])
-            # pdf.set_ln
-            
+            pdf.cell(annotation['shape_attributes']['width'], annotation['shape_attributes']['height'], txt = annotation['region_attributes']['text'])            
         pdf.output(digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf')  
 
-        prescription.digitzedImagePdf = digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf'
+
+        prescription.digitzedPdf = digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf'
         prescription.save()
-        print(prescription.digitzedImagePdf,"=======================================")
+
+        ############################
+
         context = {
             'prescription': prescription,
             'annotated_image_uri': annotated_image,
             'digitised_image_uri': digitized_image,
             'digitised_image_uri_pdf' : prescription.digitzedImagePdf.url,
+            'digitised_pdf_uri' : prescription.digitzedPdf.url
             # 'pdf_path' : os.path.join(digitised_prescriptionPdf_dir ,  url.split('.')[0]+'.pdf'),
             # 'pdf_name' : url.split('.')[0]+'.pdf'
         }
