@@ -11,6 +11,9 @@ from PIL import Image
 import img2pdf
 import os
 
+from fpdf import FPDF
+import cv2
+
 ACCESS_KEY_ID = config('ACCESS_KEY_ID')
 ACCESS_SECRET_KEY = config('ACCESS_SECRET_KEY')
 s3 = boto3.client('s3',aws_access_key_id = ACCESS_KEY_ID,aws_secret_access_key = ACCESS_SECRET_KEY)
@@ -55,10 +58,10 @@ digitised_prescriptionPdf_dir ='DigitizedPrescriptionPdf/'
 
 def visualizeAnnotation(request, prescription_id):
     if request.user.is_authenticated:
-        annotation = None
+        annotations = None
         prescription = Prescription.objects.get(id=prescription_id)
-        annotation = prescription.annotation
-        annotated_image, digitized_image,x = viewAnnotation(annotation, image_path = prescription.image.url)
+        annotations = prescription.annotation
+        annotated_image, digitized_image,x = viewAnnotation(annotations, image_path = prescription.image.url)
         
         url = prescription.image.url
         print(url,"===========>")
@@ -70,6 +73,27 @@ def visualizeAnnotation(request, prescription_id):
         file = open(digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf','wb')
         file.write(pdfdata)
         file.close()
+
+        img = cv2.imread(str(prescription.image))
+        
+        height, width = img.shape[0], img.shape[1]
+
+        pdf = FPDF('P','mm',(height,width))
+        pdf.add_page()
+        for annotation in annotations[prescription.image.url+"/-1"]['regions']:
+            height_of_box = annotation["shape_attributes"]["height"]
+            width_of_box = annotation["shape_attributes"]["width"]
+            fontScale = height_of_box / width_of_box
+            if fontScale > 0.5:
+                fontScale = 1.44
+            else:
+                fontScale = 0.72
+            pdf.set_font("Arial", size = 64*fontScale)
+            pdf.set_xy(annotation['shape_attributes']['x'],annotation['shape_attributes']['y']/1.33)
+            pdf.cell(annotation['shape_attributes']['width'], annotation['shape_attributes']['height'], txt = annotation['region_attributes']['text'])
+            # pdf.set_ln
+            
+        pdf.output(digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf')  
 
         prescription.digitzedImagePdf = digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf'
         prescription.save()
