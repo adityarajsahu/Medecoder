@@ -46,8 +46,11 @@ def uploadPrescription(request):
 def viewPrescription(request):
 
     if request.user.is_authenticated:
+        search = request.POST.get('search','')
+
         data = {
             'prescriptions' : Prescription.objects.all(),
+            'searched' : search
         }
         return render(request, 'pages/viewPrescription.html', context=data)
     else:
@@ -58,6 +61,7 @@ digitised_prescriptionPdf_dir ='DigitizedPrescriptionPdf/'
 
 def visualizeAnnotation(request, prescription_id):
     if request.user.is_authenticated:
+
         annotations = None
         prescription = Prescription.objects.get(id=prescription_id)
         annotations = prescription.annotation

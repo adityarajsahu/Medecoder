@@ -14,11 +14,15 @@
           <div class="card">
             <div class="card-header text-center">
               <h4 class="card-title">View Prescription</h4>
+              <form class="form-inline" action="/viewPrescription/" method="post">
+              {% csrf_token %}
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
             </div>
-  
             <div class="card-body row">
-
               {% for prescription in prescriptions %}
+                {% if prescription.uploaded_by.username == searched %}
                 <div class="card col-md-3 p-5 m-5">
                   <div class="card-img mt-3">
                     <img width="100%" alt="prescription_img" src="{{prescription.image.url}}">
@@ -31,6 +35,7 @@
                     <button class="btn btn-primary">View</button>
                   </a>
                 </div>
+                {% endif %}
               {% endfor %}
             </div>
           </div>
