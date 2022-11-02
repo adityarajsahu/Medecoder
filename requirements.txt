@@ -5,3 +5,4 @@ opencv_contrib_python==4.6.0.66
 Pillow==9.2.0
 python-decouple==3.6
 img2pdf==0.4.4
+fpdf==1.7.2
