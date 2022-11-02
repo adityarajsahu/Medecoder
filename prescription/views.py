@@ -69,6 +69,19 @@ def visualizeAnnotation(request, prescription_id):
         annotations = prescription.annotation
         annotated_image, digitized_image,x = viewAnnotation(annotations, image_path = prescription.image.url)
         
+        # create directories if do not exist
+        if not os.path.exists(digitised_prescriptionImage_dir):
+            os.makedirs(digitised_prescriptionImage_dir)
+            print('DigitizedPrescriptionImage created')
+
+        if not os.path.exists(digitised_prescriptionImagePdf_dir):
+            os.makedirs(digitised_prescriptionImagePdf_dir)
+            print('DigitizedPrescriptionImagePdf created')
+
+        if not os.path.exists(digitised_prescriptionPdf_dir):
+            os.makedirs(digitised_prescriptionPdf_dir)
+            print('DigitizedPrescriptionPdf created')
+
         #img2pdf Code
         url = prescription.image.url
         url = url.split('/')[-1]
