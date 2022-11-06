@@ -47,10 +47,16 @@ def uploadPrescription(request):
 def viewPrescription(request):
 
     if request.user.is_authenticated:
-        search = request.POST.get('search','')
+        print(request.POST)
+        search = None
+        result =  Prescription.objects.all()
+        if 'search' in request.POST:
+            search = request.POST['search']
+            result = Prescription.objects.filter(annotation__contains = search)
+            print(result)
 
         data = {
-            'prescriptions' : Prescription.objects.all(),
+            'prescriptions' : result,
             'searched' : search
         }
         return render(request, 'pages/viewPrescription.html', context=data)
@@ -72,15 +78,12 @@ def visualizeAnnotation(request, prescription_id):
         # create directories if do not exist
         if not os.path.exists(digitised_prescriptionImage_dir):
             os.makedirs(digitised_prescriptionImage_dir)
-            print('DigitizedPrescriptionImage created')
 
         if not os.path.exists(digitised_prescriptionImagePdf_dir):
             os.makedirs(digitised_prescriptionImagePdf_dir)
-            print('DigitizedPrescriptionImagePdf created')
 
         if not os.path.exists(digitised_prescriptionPdf_dir):
             os.makedirs(digitised_prescriptionPdf_dir)
-            print('DigitizedPrescriptionPdf created')
 
         #img2pdf Code
         url = prescription.image.url
@@ -239,13 +242,15 @@ def singleView(request, prescription_id):
         for r in annotation[url]['regions']:
             confidence += r['region_attributes']['confidence']
         
-        confidence /= len(annotation[url]['regions'])
+        if len(annotation[url]['regions']):
+            confidence /= len(annotation[url]['regions'])
 
         context = {
             'prescription': Prescription.objects.get(id=prescription_id),
             'predicted':p,
             'overall_confidence': round(confidence,2)
         }
+    
         return render(request, 'pages/singleView.html', context=context)
     else:
         return redirect('login')
