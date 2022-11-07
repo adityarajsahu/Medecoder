@@ -6,6 +6,7 @@ DigitizedPrescriptionImage
 DigitizedPrescriptionPdf
 DigitizedPrescriptionImagePdf
 imageAnnotations
+RxPrescriptions
 
 
 # Byte-compiled / optimized / DLL files
