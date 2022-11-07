@@ -5,6 +5,7 @@ sample.json
 DigitizedPrescriptionImage
 DigitizedPrescriptionPdf
 DigitizedPrescriptionImagePdf
+imageAnnotations
 
 
 # Byte-compiled / optimized / DLL files
@@ -12,6 +13,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 data.txt
+digitised_prescriptionPdf_dir + url.split('.')[0]+'.pdf','wb'
 
 # C extensions
 *.so
