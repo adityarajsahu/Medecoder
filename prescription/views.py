@@ -314,3 +314,12 @@ def addAnnotation(request, prescription_id):
     prescription.annotation = annotations
     prescription.save()
     return JsonResponse({"abc":"dad"})
+
+def deletePrescription(request, prescription_id):
+    if request.user.is_authenticated:
+        search = None
+        prescription = Prescription.objects.get(id=prescription_id)
+        prescription.delete()
+        return redirect("prescriptions")
+    else:
+        return redirect('login')

@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import homepage,uploadPrescription,viewPrescription,Prescriptions, singleView, annotatePrescription, addAnnotation, predictPrescription, visualizeAnnotation,addMedication 
+from .views import homepage,uploadPrescription,viewPrescription,Prescriptions, singleView, annotatePrescription, addAnnotation, predictPrescription, visualizeAnnotation,addMedication, deletePrescription
 
 urlpatterns = [
     path('', homepage, name="home"),
     path('uploadPrescription/',uploadPrescription,name = 'upload'),
     path('viewPrescription/',viewPrescription,name = 'prescriptions'),
+    path('deletePrescription/<int:prescription_id>/', deletePrescription, name = 'deletePrescription'),
     path('prescriptions/',Prescriptions,name = 'Viewprescriptions'),
     # path('dashboard/',Dashboard, name = 'Dashboard'),
     path('singleViewPrescription/<int:prescription_id>/', singleView, name='singleViewPres'),
