@@ -47,16 +47,16 @@ def uploadPrescription(request):
 def viewPrescription(request):
 
     if request.user.is_authenticated:
-        print(request.POST)
         search = None
         result =  Prescription.objects.all()
+        prescriptions_containing_search = []
         if 'search' in request.POST:
-            search = request.POST['search']
-            result = Prescription.objects.filter(annotation__contains = search)
-            print(result)
-
+            search = request.POST['search'].lower()
+            for prescription in result:
+                if search in str(prescription.annotation).lower():
+                    prescriptions_containing_search.append(prescription)
         data = {
-            'prescriptions' : result,
+            'prescriptions' : prescriptions_containing_search or result,
             'searched' : search
         }
         return render(request, 'pages/viewPrescription.html', context=data)
