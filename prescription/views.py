@@ -47,7 +47,7 @@ def uploadPrescription(request):
 def viewPrescription(request):
 
     if request.user.is_authenticated:
-        search = None
+        search = ""
         result =  Prescription.objects.all()
         prescriptions_containing_search = []
         if 'search' in request.POST:

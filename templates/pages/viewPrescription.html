@@ -14,15 +14,10 @@
           <div class="card">
             <div class="card-header text-center">
               <h4 class="card-title">View Prescription</h4>
-              <form class="form-inline" action="/viewPrescription/" method="post">
-              {% csrf_token %}
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
             </div>
             <div class="card-body row">
                 {% for prescription in prescriptions %}
-                <div class="card col-md-3 m-5 br-5" style="border-radius: 2em;">
+                <div class="card col-md-3 m-5 br-5 text-center" style="border-radius: 2em;">
                   <div class="card-img mt-3">
                     <img width="100%" alt="prescription_img" src="{{prescription.image.url}}">
                   </div>
@@ -30,10 +25,18 @@
                     Uploaded By: {{prescription.uploaded_by.username}}
                     Uploaded On: {{prescription.uploaded_on}}
                   </div>
-                  <a style="text-align: center;" href="/singleViewPrescription/{{prescription.id}}/">
-                    <button class="btn btn-primary mb-3">View</button>
-                  </a>
-                  <a href="/deletePrescription/{{prescription.id}}/"><button class="btn btn-danger">Delete</button></a>
+                  <div class="container d-flex justify-content-between">
+                    <span>
+                      <a href="/singleViewPrescription/{{prescription.id}}/">
+                        <button class="btn btn-primary mb-3">View</button>
+                      </a>
+                    </span>
+                    <span>
+                      <a href="/deletePrescription/{{prescription.id}}/">
+                        <button class="btn btn-danger">Delete</button>
+                      </a>
+                    </span>
+                  </div>
                 </div>
                 {% endfor %}              
             </div>
