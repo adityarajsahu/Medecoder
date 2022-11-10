@@ -53,10 +53,12 @@ def viewPrescription(request):
         if 'search' in request.POST:
             search = request.POST['search'].lower()
             for prescription in result:
-                if search in str(prescription.annotation).lower():
+                if search in (str(prescription.annotation).lower() + prescription.uploaded_by.username.lower()):
                     prescriptions_containing_search.append(prescription)
+        else:
+            prescriptions_containing_search = result
         data = {
-            'prescriptions' : prescriptions_containing_search or result,
+            'prescriptions' : prescriptions_containing_search,
             'searched' : search
         }
         return render(request, 'pages/viewPrescription.html', context=data)
