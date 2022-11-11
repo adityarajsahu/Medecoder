@@ -322,6 +322,6 @@ def deletePrescription(request, prescription_id):
         search = None
         prescription = Prescription.objects.get(id=prescription_id)
         prescription.delete()
-        return redirect("prescriptions")
+        return redirect( "home")
     else:
         return redirect('login')

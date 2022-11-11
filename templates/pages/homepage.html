@@ -24,7 +24,13 @@
                             </div>
                             <div class="card-text">
                                 <a href="/singleViewPrescription/{{prescription.id}}/"><button class="btn btn-primary m-3">View</button></a>
+                                <span>
+                                    <a href="/deletePrescription/{{prescription.id}}/">
+                                      <button class="btn btn-danger">Delete</button>
+                                    </a>
+                                  </span>
                             </div>
+                            
                         </div>
                     </div>
                     {% endfor %}
