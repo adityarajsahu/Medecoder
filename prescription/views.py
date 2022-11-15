@@ -321,7 +321,8 @@ def deletePrescription(request, prescription_id):
     if request.user.is_authenticated:
         search = None
         prescription = Prescription.objects.get(id=prescription_id)
-        prescription.delete()
+        if request.user == prescription.uploaded_by:
+            prescription.delete()
         return redirect( "home")
     else:
         return redirect('login')
