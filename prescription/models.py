@@ -10,3 +10,13 @@ class Prescription(models.Model):
     medication = models.JSONField(null=True,blank=True)
     digitzedImagePdf = models.FileField(upload_to = 'DigitizedPrescriptionImage_pdf/')
     digitzedPdf = models.FileField(upload_to = 'DigitizedPrescription_pdf/')
+
+    noChecked = models.IntegerField(default=0)
+    confidence = models.FloatField(default=1)
+
+class Approval(models.Model):
+    status = models.CharField(default="Pending",max_length=20)
+    prescription = models.ForeignKey(Prescription,null = True, on_delete=models.SET_NULL)
+    checkedBy = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
+
+    

@@ -93,3 +93,8 @@ def to_data_uri(pil_img):
 def numpyImg_to_base64img(np_img):
     pil_image = Image.fromarray(np_img).convert('RGB')
     return to_data_uri(pil_image)
+
+
+def calculateConfidence(n,confidence,ratio):
+
+    return round(((confidence) * (n+1) + (ratio) )/ (n+2),3)

@@ -1,0 +1,79 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Homepage {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header text-center">
+              <h4 class="card-title">View Approval</h4>
+            </div>
+            <div class="card-body row">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Prescription</th>
+                                <th scope="col">Confidence</th>
+                                <th scope="col">no Checked</th>
+                                <th scope="col">Status</th>
+                                <!-- <th scope="col">View</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for approval in fetchedApprovals %}
+
+                            <tr>
+                                <td>1</td>
+                                <td><img src = "{{approval.prescription.image.url}}" width="20%" alt="prescription_img"></td>
+                                <td>{{approval.prescription.confidence}}</td>
+                                <td>{{approval.prescription.noChecked}}</td>
+
+                                <td>
+                                    {%if  approval.status == "Pending"%}
+                                    <a href = "/processApproval/{{approval.prescription.id}}/">
+                                    <span class="badge badge-pill badge-warning">{{approval.status}}</span>
+
+                                    </a>
+                                    {% else %}
+                                    <span class="badge badge-pill badge-success">{{approval.status}}</span>
+                                    {% endif %}
+                                </td>
+                                <!-- <td> 
+                                  {%if  approval.status == "Pending"%}
+                                  <a href = "/processApproval/{{approval.prescription.id}}/">
+                                    <button class="btn btn-outline-info btn-sm">view</button>
+                                </a>
+                                {% endif %}
+                                   </td> -->
+                            </tr>
+                            {% endfor %}
+                            <!-- <tr>
+                                <td>2</td>
+                                <td>Pres2</td>
+                                <td><span class="badge badge-pill badge-success">Reviewed</span>
+                                </td>
+                                <td> <button class="btn btn-outline-info btn-sm">view </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

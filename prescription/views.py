@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from numpy import array
-from .models import Prescription
+from .models import Prescription, Approval
 from django.http import JsonResponse
 import json
 from .utils import viewAnnotation
 
 import boto3
-from .utils import convert
+from .utils import convert,calculateConfidence
 from decouple import config
 from PIL import Image
 import img2pdf
@@ -14,6 +14,10 @@ import os
 
 from fpdf import FPDF
 import cv2
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 
 ACCESS_KEY_ID = config('ACCESS_KEY_ID')
 ACCESS_SECRET_KEY = config('ACCESS_SECRET_KEY')
@@ -40,6 +44,16 @@ def uploadPrescription(request):
             obj = Prescription(uploaded_by=request.user, image=image)
             obj.save()
             predictPrescription(request, obj.id)
+
+            # approvalObj = Approval(prescription = obj)
+            # approvalObj.save()
+
+            users = list(User.objects.all())
+            for user in users: 
+                x = Approval(prescription = obj,checkedBy = user)
+                x.save()
+
+
             return redirect('singleViewPres', prescription_id=obj.id)
     else:
         return redirect('login')
@@ -324,5 +338,69 @@ def deletePrescription(request, prescription_id):
         if request.user == prescription.uploaded_by:
             prescription.delete()
         return redirect( "home")
+    else:
+        return redirect('login')
+
+
+def viewApproval(request):
+
+    if request.user.is_authenticated:
+            result =  Approval.objects.filter(checkedBy = request.user)
+            context = {
+                'fetchedApprovals' : result,
+          }
+            return render(request, 'pages/viewApproval.html', context=context)
+    else:
+        return redirect('login')
+
+def processApproval(request,prescription_id):
+
+    if request.user.is_authenticated:
+        prescription = Prescription.objects.get(id=prescription_id)
+        annotations = prescription.annotation
+        annotated_image, digitized_image,x = viewAnnotation(annotations, image_path = prescription.image.url)
+        c = 0
+        for annotation in annotations[prescription.image.url+"/-1"]['regions']:
+            c+=1
+        
+        context = {
+            'annotated_image_uri': annotated_image,
+            'digitised_image_uri': digitized_image,
+            'noOfAnnotations' : c,
+            'prescription_id' : prescription_id
+        }
+        
+        return render(request, 'pages/approvalPage.html', context=context)
+    else:
+        return redirect('login')
+
+def updateApproval(request,prescription_id):
+    if request.user.is_authenticated:
+        prescription = Prescription.objects.get(id=prescription_id)
+        approval = Approval.objects.get(prescription = prescription,checkedBy = request.user)
+        
+        approval.status = "Reviewed"
+
+        correctAnnotations = request.POST['correctAnnotations']
+        noOfAnnotations = request.POST['noOfAnnotations']
+
+        ratio = int(correctAnnotations) / int(noOfAnnotations)
+
+        print(ratio, "------>")
+
+        prescription.confidence = calculateConfidence(prescription.noChecked,prescription.confidence,ratio)
+
+        prescription.noChecked = prescription.noChecked + 1
+
+
+        approval.save()
+        prescription.save()
+
+        result =  Approval.objects.filter(checkedBy = request.user)
+
+        context = {
+                'fetchedApprovals' : result
+            }
+        return render(request, 'pages/viewApproval.html', context=context)
     else:
         return redirect('login')

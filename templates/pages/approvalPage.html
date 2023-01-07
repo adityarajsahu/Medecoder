@@ -1,0 +1,42 @@
+{% extends "layouts/base1.html" %} {% block title %} Homepage {% endblock title%}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="content">
+  <div class="page-inner">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card p-5">
+          <div class="card-img">
+            <img src="{{annotated_image_uri}}" width="80%" alt="pres" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 p-5">
+        <div class="card">
+          <img src="{{digitised_image_uri}}" width="80%" alt="pres" />
+        </div>
+      </div>
+      <div>
+       
+          <form action="/updateApproval/{{prescription_id}}/" method="POST" class="text-center" enctype="multipart/form-data" >
+            {% csrf_token %}
+            Correct Annotations : 
+            <input type = "textbox" name = "correctAnnotations"/> / 
+            <input type = "textbox" name = "noOfAnnotations" value="{{noOfAnnotations}}" readonly  />
+            <!-- <input type="text" readonly class="form-control-plaintext" id="staticEmail"  name = "noOfAnnotations" value="{{noOfAnnotations}}"> -->
+
+            <button type="submit" class="mt-5 btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
