@@ -41,6 +41,7 @@ def uploadPrescription(request):
             return render(request, 'pages/uploadPrescription.html')
         elif request.method == 'POST':
             image = request.FILES['prescription_image']
+
             obj = Prescription(uploaded_by=request.user, image=image)
             obj.save()
             predictPrescription(request, obj.id)
@@ -360,14 +361,18 @@ def processApproval(request,prescription_id):
         annotations = prescription.annotation
         annotated_image, digitized_image,x = viewAnnotation(annotations, image_path = prescription.image.url)
         c = 0
+
+        listAnnotations = []
         for annotation in annotations[prescription.image.url+"/-1"]['regions']:
             c+=1
+            listAnnotations.append(annotation['region_attributes']['text'])
         
         context = {
             'annotated_image_uri': annotated_image,
             'digitised_image_uri': digitized_image,
             'noOfAnnotations' : c,
-            'prescription_id' : prescription_id
+            'prescription_id' : prescription_id,
+            'listAnnotations' : listAnnotations
         }
         
         return render(request, 'pages/approvalPage.html', context=context)

@@ -16,7 +16,32 @@
 
       <div class="col-md-6 p-5">
         <div class="card">
-          <img src="{{digitised_image_uri}}" width="80%" alt="pres" />
+          <!-- <img src="{{digitised_image_uri}}" width="80%" alt="pres" /> -->
+          <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Annotation</th>
+                        <th scope="col">Action</th>
+                        
+                        <!-- <th scope="col">View</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in listAnnotations %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{x}}</td>
+                      <td class="d-flex">
+                        <button class="btn btn-success btn-sm" style = "border-radius: 25px; " onclick="buttonClick(`{{forloop.counter}}`,true);" id = "{{forloop.counter}}"><i class="bi bi-check"></i></button>
+                        <button class="btn btn-danger btn-sm" style = "border-radius: 25px;" onclick="buttonClick(`{{forloop.counter}}n`,false)" id = "{{forloop.counter}}n"><i class="bi bi-x"></i></button>
+                      </td>
+                  </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         </div>
       </div>
       <div>
@@ -24,7 +49,7 @@
           <form action="/updateApproval/{{prescription_id}}/" method="POST" class="text-center" enctype="multipart/form-data" >
             {% csrf_token %}
             Correct Annotations : 
-            <input type = "textbox" name = "correctAnnotations"/> / 
+            <input type = "textbox" name = "correctAnnotations" value="0" id = "inc"/> / 
             <input type = "textbox" name = "noOfAnnotations" value="{{noOfAnnotations}}" readonly  />
             <!-- <input type="text" readonly class="form-control-plaintext" id="staticEmail"  name = "noOfAnnotations" value="{{noOfAnnotations}}"> -->
 
@@ -35,6 +60,26 @@
    
   </div>
 </div>
+
+<script>
+
+var i = 0;
+    function buttonClick(btnId,isTickBtn) {
+      
+        
+        if(isTickBtn){
+          i++;
+        document.getElementById('inc').value = i;
+        document.getElementById(btnId).disabled = true;
+        document.getElementById(btnId + "n").disabled = true;
+        }else{
+          document.getElementById(btnId).disabled = true;
+          document.getElementById(btnId.slice(0,btnId.length - 1)).disabled = true;
+        }
+
+    }
+
+</script>
 
 {% endblock content %}
 
