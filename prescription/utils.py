@@ -3,6 +3,8 @@ from PIL import Image
 import base64
 import numpy as np
 from io import BytesIO
+import imagehash
+
 
 def remove_single_quote(word):
     s = ''
@@ -98,3 +100,17 @@ def numpyImg_to_base64img(np_img):
 def calculateConfidence(n,confidence,ratio):
 
     return round(((confidence) * (n+1) + (ratio) )/ (n+2),3)
+
+def isSimilarImage(img1,img2):
+    hash1 = imagehash.average_hash(Image.open(img1))
+    hash2 = imagehash.average_hash(Image.open(img2))
+    return True if hash1 - hash2 == 0 else False
+
+def convertJson(filename, json_response):
+    url1 = list(json_response.keys())[0]
+    new_url = "/uploadedPrescriptions/{}/-1".format(filename)
+    json_response[new_url] = json_response.pop(str(url1))
+    json_response[new_url]['filename'] = new_url
+    return json_response
+
+

@@ -16,7 +16,7 @@ class Prescription(models.Model):
 
 class Approval(models.Model):
     status = models.CharField(default="Pending",max_length=20)
-    prescription = models.ForeignKey(Prescription,null = True, on_delete=models.SET_NULL)
+    prescription = models.ForeignKey(Prescription,null = True, on_delete=models.CASCADE)
     checkedBy = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
 
     

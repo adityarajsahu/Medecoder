@@ -40,21 +40,22 @@
                   </tr>
                     {% endfor %}
                 </tbody>
+                
             </table>
+            <form action="/updateApproval/{{prescription_id}}/" method="POST" class="text-center" enctype="multipart/form-data" >
+              {% csrf_token %}
+              <input type = "textbox" name = "correctAnnotations" value="0" id = "inc" hidden/> 
+              <input type = "textbox" name = "noOfAnnotations" value="{{noOfAnnotations}}" readonly  hidden/>
+              <!-- <input type="text" readonly class="form-control-plaintext" id="staticEmail"  name = "noOfAnnotations" value="{{noOfAnnotations}}"> -->
+  
+              <button type="submit" class="mt-5 btn btn-primary">Submit</button>
+          </form>
         </div>
         </div>
       </div>
       <div>
        
-          <form action="/updateApproval/{{prescription_id}}/" method="POST" class="text-center" enctype="multipart/form-data" >
-            {% csrf_token %}
-            Correct Annotations : 
-            <input type = "textbox" name = "correctAnnotations" value="0" id = "inc"/> / 
-            <input type = "textbox" name = "noOfAnnotations" value="{{noOfAnnotations}}" readonly  />
-            <!-- <input type="text" readonly class="form-control-plaintext" id="staticEmail"  name = "noOfAnnotations" value="{{noOfAnnotations}}"> -->
-
-            <button type="submit" class="mt-5 btn btn-primary">Submit</button>
-        </form>
+          
       </div>
     </div>
    
@@ -70,11 +71,11 @@ var i = 0;
         if(isTickBtn){
           i++;
         document.getElementById('inc').value = i;
-        document.getElementById(btnId).disabled = true;
-        document.getElementById(btnId + "n").disabled = true;
+        document.getElementById(btnId).hidden = true;
+        document.getElementById(btnId + "n").hidden = true;
         }else{
-          document.getElementById(btnId).disabled = true;
-          document.getElementById(btnId.slice(0,btnId.length - 1)).disabled = true;
+          document.getElementById(btnId).hidden = true;
+          document.getElementById(btnId.slice(0,btnId.length - 1)).hidden = true;
         }
 
     }

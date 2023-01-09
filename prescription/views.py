@@ -6,7 +6,7 @@ import json
 from .utils import viewAnnotation
 
 import boto3
-from .utils import convert,calculateConfidence
+from .utils import convert,calculateConfidence,isSimilarImage,convertJson
 from decouple import config
 from PIL import Image
 import img2pdf
@@ -14,6 +14,7 @@ import os
 
 from fpdf import FPDF
 import cv2
+
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -41,13 +42,28 @@ def uploadPrescription(request):
             return render(request, 'pages/uploadPrescription.html')
         elif request.method == 'POST':
             image = request.FILES['prescription_image']
-
+             
+            prescriptionList = Prescription.objects.all()
             obj = Prescription(uploaded_by=request.user, image=image)
             obj.save()
-            predictPrescription(request, obj.id)
 
-            # approvalObj = Approval(prescription = obj)
-            # approvalObj.save()
+            flag = False
+            flagItem = ""
+            
+            for i in range(len(prescriptionList) - 1):
+                if(isSimilarImage(prescriptionList[i].image, obj.image)):
+                    flag = True
+                    flagItem = prescriptionList[i]
+                    break
+            
+            print(flagItem)
+            if flag:
+                print("asuchi")
+                obj.annotation = convertJson((str(obj.image).split("/"))[1],flagItem.annotation)
+                obj.save()
+            else:
+                print("else asila")
+                predictPrescription(request, obj.id)
 
             users = list(User.objects.all())
             for user in users: 
