@@ -17,11 +17,14 @@
                     </div>
 
                         <div class="card-body">
-                            <div class="container" style="width: 50%;">
+                            <div class="container" style="width: 70%;">
                                 <div class="mb-3 card p-5 shadow-lg">
+                                    <div class="container img-responsive">
+                                        <img src="#" id="blah" alt="Image not selected" width="100%">
+                                    </div>
                                     <form action="/uploadPrescription/" method="POST" class="text-center" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <input class="form-control" type="file" name="prescription_image" accept="image/*" capture>
+                                        <input class="form-control" type="file" name="prescription_image" accept="image/*" capture id="image_input">
                                         <button type="submit" class="mt-5 btn btn-primary">Submit</button>
                                     </form>
                                 </div>
@@ -36,4 +39,16 @@
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script>
+    var inp = document.getElementById('image_input')
+    var blah = document.getElementById('blah')
+    inp.onchange = event => {
+        const [file] = inp.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+        }
+    }
+
+</script>
+{% endblock javascripts %}

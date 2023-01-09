@@ -417,11 +417,12 @@ def updateApproval(request,prescription_id):
         approval.save()
         prescription.save()
 
-        result =  Approval.objects.filter(checkedBy = request.user)
+        # result =  Approval.objects.filter(checkedBy = request.user)
 
-        context = {
-                'fetchedApprovals' : result
-            }
-        return render(request, 'pages/viewApproval.html', context=context)
+        # context = {
+        #         'fetchedApprovals' : result
+        #     }
+        # return render(request, 'pages/viewApproval.html', context=context)
+        return redirect('approvals')
     else:
         return redirect('login')

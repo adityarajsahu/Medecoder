@@ -32,7 +32,7 @@
                             {% for approval in fetchedApprovals %}
 
                             <tr>
-                                <td>1</td>
+                                <td>{{forloop.counter}}</td>
                                 <td><img src = "{{approval.prescription.image.url}}" width="20%" alt="prescription_img"></td>
                                 <td>{{approval.prescription.confidence}}</td>
                                 <td>{{approval.prescription.noChecked}}</td>

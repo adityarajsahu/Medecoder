@@ -3,7 +3,23 @@
 {% block title %} Homepage {% endblock title %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+    .loader {
+        border: 3px solid #f3f3f3; /* Light grey */
+        border-top: 3px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 21px;
+        height: 21px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -23,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6"  >
                {% if overall_confidence %}
                <div class="text-center">
                 Overall Confidence: {{overall_confidence}}
@@ -40,6 +56,13 @@
                 <div class="m-5 p-2">
                     <a href="/visualiseAnnotation/{{prescription.id}}/"><button class="btn btn-primary">VISUALIZE</button></a>
                 </div>
+                <div class="m-5 p-2">
+                    <!-- <a href="/visualiseAnnotation/{{prescription.id}}/"> -->
+                        <button class="btn btn-lg btn-danger"  type="button" id = "alpanaRaButton">
+                            Retrain
+                        </button>
+                    <!-- </a> -->
+                </div>
                 {% else %}
                 <div> <h3>Upload a Proper Prescription</h3><br><h4>No text Extracted</h4> </div>
                 {% endif %}
@@ -53,8 +76,19 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
-
-
+<script type="text/javascript">  
+    $(document).ready(function(){ 
+        $("#alpanaRaButton").click(function(){
+            var btn = document.getElementById('alpanaRaButton')
+            btn.innerHTML = " <div class = 'd-flex'><div>Training &nbsp</div><span class='loader'></span></div>"
+            setTimeout(()=>{
+                var btn = document.getElementById('alpanaRaButton')
+                btn.innerHTML = "Retrain"
+            }, 5000)       
+        });
+    });   
+</script> 
 {% endblock javascripts %}
