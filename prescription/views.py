@@ -395,34 +395,61 @@ def processApproval(request,prescription_id):
     else:
         return redirect('login')
 
+# def updateApproval(request,prescription_id):
+#     if request.user.is_authenticated:
+#         prescription = Prescription.objects.get(id=prescription_id)
+#         approval = Approval.objects.get(prescription = prescription,checkedBy = request.user)
+        
+#         approval.status = "Reviewed"
+
+#         correctAnnotations = request.POST['correctAnnotations']
+#         noOfAnnotations = request.POST['noOfAnnotations']
+
+#         ratio = int(correctAnnotations) / int(noOfAnnotations)
+
+#         print(ratio, "------>")
+
+#         prescription.confidence = calculateConfidence(prescription.noChecked,prescription.confidence,ratio)
+
+#         prescription.noChecked = prescription.noChecked + 1
+
+
+#         approval.save()
+#         prescription.save()
+
+#         # result =  Approval.objects.filter(checkedBy = request.user)
+
+#         # context = {
+#         #         'fetchedApprovals' : result
+#         #     }
+#         # return render(request, 'pages/viewApproval.html', context=context)
+#         return redirect('approvals')
+#     else:
+#         return redirect('login')
+
+
+
 def updateApproval(request,prescription_id):
     if request.user.is_authenticated:
         prescription = Prescription.objects.get(id=prescription_id)
         approval = Approval.objects.get(prescription = prescription,checkedBy = request.user)
-        
-        approval.status = "Reviewed"
 
         correctAnnotations = request.POST['correctAnnotations']
         noOfAnnotations = request.POST['noOfAnnotations']
-
         ratio = int(correctAnnotations) / int(noOfAnnotations)
-
         print(ratio, "------>")
 
-        prescription.confidence = calculateConfidence(prescription.noChecked,prescription.confidence,ratio)
-
-        prescription.noChecked = prescription.noChecked + 1
-
+        if approval.status == "Reviewed":
+            prescription.confidence = calculateConfidence(prescription.noChecked,prescription.confidence,ratio)
+            
+        else :
+            approval.status = "Reviewed"
+            prescription.confidence = calculateConfidence(prescription.noChecked,prescription.confidence,ratio)
+            prescription.noChecked = prescription.noChecked + 1
 
         approval.save()
         prescription.save()
 
-        # result =  Approval.objects.filter(checkedBy = request.user)
-
-        # context = {
-        #         'fetchedApprovals' : result
-        #     }
-        # return render(request, 'pages/viewApproval.html', context=context)
         return redirect('approvals')
     else:
         return redirect('login')

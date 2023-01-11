@@ -44,7 +44,10 @@
 
                                     </a>
                                     {% else %}
-                                    <span class="badge badge-pill badge-success">{{approval.status}}</span>
+                                    <a href = "/processApproval/{{approval.prescription.id}}/">
+                                      <span class="badge badge-pill badge-success">{{approval.status}}</span>
+                                    </a>
+                                    
                                     {% endif %}
                                 </td>
                                 <!-- <td> 

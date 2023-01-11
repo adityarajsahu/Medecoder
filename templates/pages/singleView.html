@@ -42,19 +42,19 @@
             <div class="col-md-6"  >
                {% if overall_confidence %}
                <div class="text-center">
-                Overall Confidence: {{overall_confidence}}
+                <h2>Overall Confidence: {{overall_confidence}}</h2>
                 <div class="m-5 p-2">
                     <a href="/annotatePrescription/{{prescription.id}}/">
-                        <button class="btn btn-success">EDIT</button>
+                        <button class="btn btn-lg btn-warning">EDIT</button>
                     </a>
                 </div>
                 <div class="m-5 p-2">
                     <a href="/addMedication/{{prescription.id}}/">
-                        <button class="btn btn-success">Medication</button>
+                        <button class="btn btn-lg btn-success">Medication</button>
                     </a>
                 </div>
                 <div class="m-5 p-2">
-                    <a href="/visualiseAnnotation/{{prescription.id}}/"><button class="btn btn-primary">VISUALIZE</button></a>
+                    <a href="/visualiseAnnotation/{{prescription.id}}/"><button class="btn btn-lg btn-primary">VISUALIZE</button></a>
                 </div>
                 <div class="m-5 p-2">
                     <!-- <a href="/visualiseAnnotation/{{prescription.id}}/"> -->
@@ -84,9 +84,11 @@
         $("#alpanaRaButton").click(function(){
             var btn = document.getElementById('alpanaRaButton')
             btn.innerHTML = " <div class = 'd-flex'><div>Training &nbsp</div><span class='loader'></span></div>"
+            btn.disabled = true
             setTimeout(()=>{
                 var btn = document.getElementById('alpanaRaButton')
                 btn.innerHTML = "Retrain"
+                btn.disabled = false
             }, 5000)       
         });
     });   
