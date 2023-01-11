@@ -18,7 +18,7 @@
         <div class="card">
           <!-- <img src="{{digitised_image_uri}}" width="80%" alt="pres" /> -->
           <div class="card-body">
-            <table class="table table-hover">
+            <table class="table table-hover" style='height:50vh; display:block; overflow:scroll;'>
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -34,8 +34,12 @@
                       <td>{{forloop.counter}}</td>
                       <td>{{x}}</td>
                       <td class="d-flex">
-                        <button class="btn btn-success btn-sm" style = "border-radius: 25px; " onclick="buttonClick(`{{forloop.counter}}`,true);" id = "{{forloop.counter}}"><i class="bi bi-check"></i></button>
-                        <button class="btn btn-danger btn-sm" style = "border-radius: 25px;" onclick="buttonClick(`{{forloop.counter}}n`,false)" id = "{{forloop.counter}}n"><i class="bi bi-x"></i></button>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="btn btn-success" onclick="buttonClick(`{{forloop.counter}}`,true);" id = "{{forloop.counter}}"><i class="bi bi-check"></i></button>
+                          <button type="button" class="btn btn-danger" onclick="buttonClick(`{{forloop.counter}}n`,false)" id = "{{forloop.counter}}n"><i class="bi bi-x"></i></button>
+                        </div>
+                        <!-- <button class="btn btn-success btn-sm" style = "border-radius: 50%;" onclick="buttonClick(`{{forloop.counter}}`,true);" id = "{{forloop.counter}}"><i class="bi bi-check"></i></button> -->
+                        <!-- <button class="btn btn-danger btn-sm" style = "border-radius: 50%;" onclick="buttonClick(`{{forloop.counter}}n`,false)" id = "{{forloop.counter}}n"><i class="bi bi-x"></i></button> -->
                       </td>
                   </tr>
                     {% endfor %}
