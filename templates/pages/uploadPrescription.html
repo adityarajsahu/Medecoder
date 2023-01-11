@@ -20,7 +20,7 @@
                             <div class="container" style="width: 70%;">
                                 <div class="mb-3 card p-5 shadow-lg">
                                     <div class="container img-responsive">
-                                        <img src="#" id="blah" alt="Image not selected" width="100%">
+                                        <img src="#" id="blah" alt="Image not selected" width="100%" style="display: none;">
                                     </div>
                                     <form action="/uploadPrescription/" method="POST" class="text-center" enctype="multipart/form-data">
                                         {% csrf_token %}
@@ -48,6 +48,7 @@
         if (file) {
             blah.src = URL.createObjectURL(file)
         }
+        blah.style = 'display: block'
     }
 
 </script>

@@ -8,7 +8,7 @@
 {% block content %}
 
     <div class="page-inner">
-        <div class="container mt-5">
+        <div class="container-fluid mt-5">
             <div class="card">
                 <div class="card-body">
                     <h1>{{request.user.username}}</h1>
@@ -18,7 +18,7 @@
                     {% if request.user.prescription_set %}
                     {% for prescription in request.user.prescription_set.all %}
                     <div class="col-md-4">
-                        <div class="card text-center m-3 p-3" style="border-radius: 2em;">
+                        <div class="card text-center m-3 p-3" style="border-radius: 1em;">
                             <div class="card-img">
                                 <img src="{{prescription.image.url}}" width="100%">
                             </div>
