@@ -19,4 +19,11 @@ class Approval(models.Model):
     prescription = models.ForeignKey(Prescription,null = True, on_delete=models.CASCADE)
     checkedBy = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
 
-    
+
+class CustomerPrescription(models.Model):
+    image = models.ImageField(upload_to = 'customerUploadedPrescriptions/')
+    annotation = models.JSONField(null=True, blank=True)
+    medication = models.JSONField(null=True,blank=True)
+    uploaded_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    phoneNumber = models.IntegerField(default=9937097399)
+

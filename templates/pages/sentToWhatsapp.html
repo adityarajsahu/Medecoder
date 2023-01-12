@@ -1,0 +1,63 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Upload Prescription {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Upload Prescription</h4>
+                    </div>
+
+                        <div class="card-body">
+                            <div class="container" style="width: 70%;">
+                                <div class="mb-3 card p-5 shadow-lg">
+                                    <div class="container img-responsive">
+                                        <img src="#" id="blah" alt="Image not selected" width="100%" style="display: none;">
+                                    </div>
+                                    <!-- <form action="/uploadCustomerForm/" method="POST" class="text-center" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input class="form-control" type="file" name="prescription_image" accept="image/*" capture id="image_input">
+                                        <input class="form-control" type="number" name="phoneNumber" required>
+                                        <button type="submit" class="mt-5 btn btn-primary">Submit</button>
+                                    </form> -->
+                                    Sent on Whatsapp to : {{phoneNumber}}
+
+                                </div>
+
+                            </div>
+                            {% for data in medicine_data %}
+                                <img src="{{data.0}}" alt="">
+                                <h2>{{data.1}}</h2>
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script>
+    var inp = document.getElementById('image_input')
+    var blah = document.getElementById('blah')
+    inp.onchange = event => {
+        const [file] = inp.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+        }
+        blah.style = 'display: block'
+    }
+
+</script>
+{% endblock javascripts %}

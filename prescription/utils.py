@@ -5,6 +5,21 @@ import numpy as np
 from io import BytesIO
 import imagehash
 
+#webscarping
+from bs4 import BeautifulSoup
+import requests
+import lxml
+import re
+import json
+import urllib.request
+
+#twillio
+import os
+from twilio.rest import Client
+from decouple import config
+
+account_sid = config('account_sid')
+auth_token = config('auth_token')
 
 def remove_single_quote(word):
     s = ''
@@ -46,11 +61,43 @@ def convert(aws_response, image_path, image_name):
             formatted_json[url]["regions"].append(new_dict)
     return formatted_json
 
+def CustomerConvert(aws_response, image_path, image_name):
+    url = "/customerUploadedPrescriptions/{}/-1".format(image_name)
+    url1="/customerUploadedPrescriptions/{}/".format(image_name)
+    image = cv2.imread(image_path)
+    height, width, _ = image.shape
+    formatted_json = {
+        url: {
+            "filename": url1,
+            "size": -1,
+            "regions": [
+            
+            ],
+            "file_attributes": {}
+        }
+    }
+    for extracted_data in aws_response["Blocks"]:
+        if extracted_data["BlockType"] == "LINE":
+            new_dict = {
+                "shape_attributes": {
+                    "name": "rect",
+                    "x": int(extracted_data["Geometry"]["BoundingBox"]["Left"] * width),
+                    "y": int(extracted_data["Geometry"]["BoundingBox"]["Top"] * height),
+                    "width": int(extracted_data["Geometry"]["BoundingBox"]["Width"] * width),
+                    "height": int(extracted_data["Geometry"]["BoundingBox"]["Height"] * height)
+                },
+                "region_attributes": {
+                    "text": remove_single_quote(extracted_data["Text"]),
+                    "confidence": extracted_data["Confidence"]
+                }
+            }
+            formatted_json[url]["regions"].append(new_dict)
+    return formatted_json
+
+
 def viewAnnotation(annotation, image_path):
-    print(annotation)
     img = cv2.imread('.'+image_path)
     h, w, _ = img.shape
-    print(image_path)
     digitized_img = np.zeros([h, w, 3], dtype=np.uint8)
     digitized_img.fill(255)
 
@@ -113,4 +160,63 @@ def convertJson(filename, json_response):
     json_response[new_url]['filename'] = new_url
     return json_response
 
+def scrapeMedicineImage(medicineName):
+    headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"
+    }
+    params = {
+        "q": str(medicineName) + " medicine", 
+        "tbm": "isch",                
+        "hl": "en",                   
+        "gl": "us",                   
+        "ijn": "0"                    
+    }
+    html = requests.get("https://www.google.com/search", params=params, headers=headers)
+    soup = BeautifulSoup(html.text, "lxml")
 
+    google_images = []
+
+    all_script_tags = soup.select("script")
+
+    matched_images_data = "".join(re.findall(r"AF_initDataCallback\(([^<]+)\);", str(all_script_tags)))
+    matched_images_data_fix = json.dumps(matched_images_data)
+    matched_images_data_json = json.loads(matched_images_data_fix)
+    matched_google_image_data = re.findall(r'\"b-GRID_STATE0\"(.*)sideChannel:\s?{}}', matched_images_data_json)
+    matched_google_images_thumbnails = ", ".join(
+        re.findall(r'\[\"(https\:\/\/encrypted-tbn0\.gstatic\.com\/images\?.*?)\",\d+,\d+\]',
+                   str(matched_google_image_data))).split(", ")
+
+    thumbnails = [
+        bytes(bytes(thumbnail, "ascii").decode("unicode-escape"), "ascii").decode("unicode-escape") for thumbnail in matched_google_images_thumbnails
+    ]
+    removed_matched_google_images_thumbnails = re.sub(
+        r'\[\"(https\:\/\/encrypted-tbn0\.gstatic\.com\/images\?.*?)\",\d+,\d+\]', "", str(matched_google_image_data))
+    matched_google_full_resolution_images = re.findall(r"(?:'|,),\[\"(https:|http.*?)\",\d+,\d+\]", removed_matched_google_images_thumbnails)
+
+    full_res_images = [
+        bytes(bytes(img, "ascii").decode("unicode-escape"), "ascii").decode("unicode-escape") for img in matched_google_full_resolution_images
+    ]
+    
+    for index, (metadata, thumbnail, original) in enumerate(zip(soup.select(".isv-r.PNCib.MSM1fd.BUooTd"), thumbnails, full_res_images), start=1):
+        google_images.append({
+            "title": metadata.select_one(".VFACy.kGQAp.sMi44c.lNHeqe.WGvvNb")["title"],
+            "link": metadata.select_one(".VFACy.kGQAp.sMi44c.lNHeqe.WGvvNb")["href"],
+            "source": metadata.select_one(".fxgdke").text,
+            "thumbnail": thumbnail,
+            "original": original
+        })
+    print(google_images)
+    res = list(google_images)[0]['original']
+    
+    return res, str(medicineName)
+
+def sendTextWhatsapp(phoneNumber,Text,mediaUrl):
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+                                body=Text,
+                                media_url=mediaUrl,
+                                from_='whatsapp:+14155238886',
+                                to='whatsapp:+91' + str(phoneNumber)
+                            )
+    return(message.sid)

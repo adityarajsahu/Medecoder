@@ -3,7 +3,24 @@
 {% block title %} View Approval {% endblock title %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+  /* img {
+    transition: transform 0.2s;
+  }
+  img:hover {
+    transform: scale(1.5); 
+    } */
+
+  .row-hover{
+    transition: transform 0.2s;
+  }
+  .row-hover:hover{
+    transform: scale(1.09); 
+
+  }
+</style>
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -11,9 +28,9 @@
     <div class="page-inner">
       <div class="row">
         <div class="col-md-12">
-          <div class="card">
+          <div class="card" style="width: 80%; margin:0 auto;">
             <div class="card-header text-center">
-              <h4 class="card-title">View Approval</h4>
+              <h4 class="page-title">View Approval</h4>
             </div>
             <div class="card-body row">
                 <div class="card-body">
@@ -31,9 +48,9 @@
                         <tbody>
                             {% for approval in fetchedApprovals %}
 
-                            <tr>
+                            <tr class="row-hover">
                                 <td>{{forloop.counter}}</td>
-                                <td><img src = "{{approval.prescription.image.url}}" width="20%" alt="prescription_img"></td>
+                                <td><img src = "{{approval.prescription.image.url}}" width="25%" alt="prescription_img" class="p-2"></td>
                                 <td>{{approval.prescription.confidence}}</td>
                                 <td>{{approval.prescription.noChecked}}</td>
 

@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from numpy import array
-from .models import Prescription, Approval
+from .models import Prescription, Approval, CustomerPrescription
 from django.http import JsonResponse
 import json
-from .utils import viewAnnotation
+from .utils import viewAnnotation, scrapeMedicineImage, sendTextWhatsapp
 
 import boto3
-from .utils import convert,calculateConfidence,isSimilarImage,convertJson
+from .utils import convert,calculateConfidence,isSimilarImage,convertJson,CustomerConvert
 from decouple import config
 from PIL import Image
 import img2pdf
@@ -14,6 +14,8 @@ import os
 
 from fpdf import FPDF
 import cv2
+
+
 
 
 from django.contrib.auth import get_user_model
@@ -437,7 +439,6 @@ def updateApproval(request,prescription_id):
         correctAnnotations = request.POST['correctAnnotations']
         noOfAnnotations = request.POST['noOfAnnotations']
         ratio = int(correctAnnotations) / int(noOfAnnotations)
-        print(ratio, "------>")
 
         if approval.status == "Reviewed":
             prescription.confidence = calculateConfidence(prescription.noChecked,prescription.confidence,ratio)
@@ -459,3 +460,135 @@ def dashboard(request):
         return render(request, 'pages/dashboard.html')
     # else:
     #     return redirect('login')
+
+def customerView(request):
+    if request.user.is_authenticated:
+
+        return render(request,'pages/uploadCustomer.html')
+    else:
+        return redirect('login')
+
+def customerUploadForm(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+
+            phoneNumber = request.POST['phoneNumber']
+            image = request.FILES['prescription_image']
+            obj = CustomerPrescription(uploaded_by=request.user, image=image, phoneNumber = int(phoneNumber))
+            obj.save()
+
+            predictCustomerPrescription(request, obj.id)
+
+            prescription = CustomerPrescription.objects.get(id=obj.id)
+            annotation = CustomerPrescription.objects.get(id=obj.id).annotation
+            url = prescription.image.url+"/-1"
+            res = ''
+            
+            PROTECTED_HEALTH_INFORMATION = []
+            info = {}
+            Medication = {}
+            med=[]
+            c = []
+            ph=[]
+            f=[]
+            test_treatment = []
+            medicalCondition = []
+            Anatomy = []
+
+            if len(annotation[url]['regions']):
+                for r in annotation[url]['regions']:
+                    res+=" "+r['region_attributes']['text']
+                result = comprehendmedical.detect_entities(Text= res)
+                entities = result['Entities']
+                
+                # print(entities)
+                for key in entities:
+                    
+                    if key['Category'] == 'PROTECTED_HEALTH_INFORMATION':
+                        ph.append(key['Text'])
+                        ph.append(key['Type'])
+                        f.append(ph)
+                        ph=[]
+
+                    elif key['Category'] == 'MEDICATION':
+                        med.append(key['Text'])
+                        med.append('N.A')
+                        med.append('N.A.')
+                        
+                        dosage = -1
+                        frequency = -1
+                        if 'Attributes' in key:
+                            for i in key['Attributes']:
+                                if i['Type'] == 'DOSAGE':
+                                    dosage = i['Text']
+                                    med[1]=i['Text']
+                                elif i['Type'] == 'FREQUENCY':
+                                    frequency =  i['Text']
+                                    med[2]=i['Text']
+                            c.append(med)
+                            med=[]
+
+                            if key['Text'] not in Medication:
+                                Medication[key['Text']] = [dosage,frequency]
+
+                    elif  key['Category'] == 'TEST_TREATMENT_PROCEDURE':
+                        test_treatment.append(key['Text'])
+                    elif key['Category'] == 'MEDICAL_CONDITION':
+                        medicalCondition.append(key['Text'])
+                    elif key['Category'] == 'ANATOMY':
+                        Anatomy.append(key['Text'])
+
+            prescription.medication = Medication
+            prescription.save()
+
+            print(c, "----->")
+
+            medicineList = c
+            
+            medicineImageUrl = []
+            for medicine in medicineList:
+                img_url, name = scrapeMedicineImage(medicine)
+                medicineImageUrl.append([img_url, name])
+            
+            for image in medicineImageUrl:
+                sendTextWhatsapp(phoneNumber, image[1], image[0])
+            context = {
+                "phoneNumber" : phoneNumber,
+                "medicine_data": medicineImageUrl,
+
+            }
+            return render(request,'pages/sentToWhatsapp.html', context= context)
+        else:
+            return redirect('customerView')
+    else:
+        return redirect('login')
+
+
+def predictCustomerPrescription(request, prescription_id):
+    if request.user.is_authenticated:
+        image_data = CustomerPrescription.objects.get(id=prescription_id).image
+        img = str(image_data)
+        if img:
+            response = s3.upload_file( 
+                Bucket = BUCKET_NAME,
+                Filename=img,
+                Key = img
+            )
+        objs = s3.list_objects_v2(Bucket=BUCKET_NAME)['Contents']
+        objs.sort(key=lambda e: e['LastModified'], reverse=True)
+        first_item = list(objs[0].items())[0]
+        documentName = str(first_item[1])
+        # Call Amazon Textract
+        with open(documentName, "rb") as document:
+            response = textract.analyze_document(
+                Document={
+                    'Bytes': document.read(),
+                },
+                FeatureTypes=["FORMS"])
+
+        preds = CustomerConvert(response,img,img.split('/')[-1])
+        prescription = CustomerPrescription.objects.get(id=prescription_id)
+        prescription.annotation= preds
+        prescription.save()
+    else:
+        return redirect("login")

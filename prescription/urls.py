@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import homepage,uploadPrescription,viewPrescription,Prescriptions, singleView, annotatePrescription, addAnnotation, predictPrescription, visualizeAnnotation,addMedication, deletePrescription,viewApproval,processApproval, updateApproval,dashboard
+from .views import homepage,uploadPrescription,viewPrescription,Prescriptions, singleView, annotatePrescription, addAnnotation, predictPrescription, visualizeAnnotation,addMedication, deletePrescription,viewApproval,processApproval, updateApproval,dashboard, customerView, customerUploadForm
 
 urlpatterns = [
     path('', homepage, name="home"),
@@ -17,5 +17,7 @@ urlpatterns = [
     path('viewApproval/',viewApproval,name = 'approvals'),
     path('processApproval/<int:prescription_id>/',processApproval, name='processApproval'),
     path('updateApproval/<int:prescription_id>/',updateApproval, name='updateApproval'),
-    path('dashboard/',dashboard,name="dashboard")
+    path('dashboard/',dashboard,name="dashboard"),
+    path('uploadCustomer/',customerView, name = "customerView"),
+    path('uploadCustomerForm/',customerUploadForm, name = "customerUploadForm")
 ]
