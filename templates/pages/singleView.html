@@ -26,16 +26,20 @@
 <div class="content">
     <div class="page-inner">
         <!-- Card -->
-        <h4 class="page-title">
+        <!-- <h4 class="page-title">
             Uploaded By: {{prescription.uploaded_by.username}}<br>
             Uploaded On: {{prescription.uploaded_on}}
             
-        </h4>
-        <div class="row">
+        </h4> -->
+        <div class="row mt-5 pt-5 ml-3">
             <div class="col-md-6">
                 <div class="card w-75 shadow-lg">
                     <div class="card-img">
                         <img width="100%" src="{{prescription.image.url}}">
+                        <h3 class="page-title ml-3 mt-2">
+                        Uploaded by : {{prescription.uploaded_by.username}}<br>
+            Uploaded on : {{prescription.uploaded_on}}
+                        </h3>
                     </div>
                 </div>
             </div>

@@ -453,3 +453,9 @@ def updateApproval(request,prescription_id):
         return redirect('approvals')
     else:
         return redirect('login')
+
+def dashboard(request):
+    # if request.user.is_authenticated:
+        return render(request, 'pages/dashboard.html')
+    # else:
+    #     return redirect('login')
