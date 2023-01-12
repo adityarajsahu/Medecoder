@@ -3,7 +3,21 @@
 {% block title %} Homepage {% endblock title %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+    img {
+        border-radius: 7px;
+    }
+
+    .zoom {
+    transition: transform 0.2s;
+  }
+  .zoom:hover {
+    transform: scale(1.1); 
+    }
+</style>
+
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -11,14 +25,14 @@
         <div class="container-fluid mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h1>{{request.user.username}}</h1>
-                    <h3>Your Uploaded Prescriptions</h3>
+                    <h1 class="page-title">Welcome {{request.user.username}}</h1>
+                    <h3 >Your Uploaded Prescriptions</h3>
                 </div>
                 <div class="row">
                     {% if request.user.prescription_set %}
                     {% for prescription in request.user.prescription_set.all %}
                     <div class="col-md-4">
-                        <div class="card text-center m-3 p-3" style="border-radius: 1em;">
+                        <div class="card text-center m-3 p-3 zoom" style="border-radius: 1em;">
                             <div class="card-img">
                                 <img src="{{prescription.image.url}}" width="100%">
                             </div>

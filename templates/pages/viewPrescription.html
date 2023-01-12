@@ -1,10 +1,22 @@
 {% extends "layouts/base1.html" %}
 
-{% block title %} Homepage {% endblock title %}
+{% block title %} View Prescriptions {% endblock title %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-<style></style>
+<style>
+  img {
+    border-radius: 7px;
+  }
+
+  .zoom {
+    transition: transform 0.2s;
+  }
+  .zoom:hover {
+  transform: scale(1.1); 
+}
+
+</style>
 {% endblock stylesheets %}
 
 {% block content %}
@@ -19,7 +31,7 @@
             </div>
             <div class="card-body row">
                 {% for prescription in prescriptions %}
-                <div class="card col-md-3 m-5 br-5 text-center" style="border-radius: 2em;">
+                <div class="card col-md-3 m-5 br-5 text-center zoom" style="border-radius: 2em;">
                   <div class="card-img mt-3">
                     <img width="100%" alt="prescription_img" src="{{prescription.image.url}}">
                   </div>
