@@ -1,8 +1,9 @@
 boto3==1.24.90
-Django==4.0.5
+Django==3.2.16
 numpy==1.22.4
 opencv_contrib_python==4.6.0.66
 Pillow==9.2.0
 python-decouple==3.6
 img2pdf==0.4.4
 fpdf==1.7.2
+twilio==7.16.1

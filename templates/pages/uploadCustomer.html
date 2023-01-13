@@ -22,7 +22,24 @@
                                     <div class="container img-responsive">
                                         <img src="#" id="blah" alt="Image not selected" width="100%" style="display: none;">
                                     </div>
+
                                     <form action="/uploadCustomerForm/" method="POST" class="" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <label for="formGroupExampleInput">Image File</label>
+                                          <input type="file" class="form-control" id="formGroupExampleInput" placeholder="Example input" name="prescription_image" accept="image/*" capture id="image_input" required>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="formGroupExampleInput2">Whatsapp Number</label>
+                                          <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Another input" name="phoneNumber" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="mt-5 btn btn-primary">Submit</button>
+                                        </div>
+                                      </form>
+                                      <p class="font-weight-light text-center">Please send a Whatsapp message to +1 415 523 8886 with <b>"join lesson-round"</b></p>
+
+                                    <!-- <form action="/uploadCustomerForm/" method="POST" class="" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <input class="form-control" type="file" name="prescription_image" accept="image/*" capture id="image_input">
                                         <label>Whatsapp Number</label>
@@ -31,7 +48,7 @@
                                         <small>Please text</small>
                                         <br>
                                         <button type="submit" class="mt-5 btn btn-primary">Submit</button>
-                                    </form>
+                                    </form> -->
                                     
                                 </div>
                             </div>
