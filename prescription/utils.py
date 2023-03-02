@@ -154,7 +154,7 @@ def isSimilarImage(img1,img2):
     return True if hash1 - hash2 == 0 else False
 
 def convertJson(filename, json_response):
-    print(json_response)
+    # print(json_response)
     url1 = list(json_response.keys())[0]
     new_url = "/uploadedPrescriptions/{}/-1".format(filename)
     json_response[new_url] = json_response.pop(str(url1))
@@ -206,7 +206,7 @@ def scrapeMedicineImage(medicineName):
             "thumbnail": thumbnail,
             "original": original
         })
-    print(google_images)
+    # print(google_images)
     
     res = list(google_images)[0]['original']
     return res, str(medicineName)
