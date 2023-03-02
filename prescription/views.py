@@ -58,13 +58,13 @@ def uploadPrescription(request):
                     flagItem = prescriptionList[i]
                     break
             
-            print(flagItem)
+            # print(flagItem)
             if flag:
-                print("asuchi")
+                # print("asuchi")
                 obj.annotation = convertJson((str(obj.image).split("/"))[1],flagItem.annotation)
                 obj.save()
             else:
-                print("else asila")
+                # print("else asila")
                 predictPrescription(request, obj.id)
 
             users = list(User.objects.all())
@@ -207,7 +207,7 @@ def addMedication(request, prescription_id):
         if len(annotation[url]['regions']):
             for r in annotation[url]['regions']:
                 res+=" "+r['region_attributes']['text']
-            print("Extracted Text =====> ", res)
+            # print("Extracted Text =====> ", res)
             result = comprehendmedical.detect_entities(Text= res)
             entities = result['Entities']
             
@@ -257,8 +257,8 @@ def addMedication(request, prescription_id):
             'medicalCondition' : medicalCondition,
             'Anatomy' : Anatomy
         }
-        print(PROTECTED_HEALTH_INFORMATION)
-        print(Medication)
+        # print(PROTECTED_HEALTH_INFORMATION)
+        # print(Medication)
         return render(request, 'pages/medication.html',context=context)
     else:
         return redirect('login')
@@ -333,9 +333,9 @@ def predictPrescription(request, prescription_id):
                 },
                 FeatureTypes=["FORMS"])
 
-        print(response)
+        # print(response)
         preds = convert(response,img,img.split('/')[-1])
-        print(preds)
+        # print(preds)
         prescription = Prescription.objects.get(id=prescription_id)
         prescription.annotation= preds
         prescription.save()
