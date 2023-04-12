@@ -221,3 +221,19 @@ def sendTextWhatsapp(phoneNumber,Text,mediaUrl):
                                 to='whatsapp:+91' + str(phoneNumber)
                             )
     return(message.sid)
+
+#wordSimilarity
+import pandas as pd
+import difflib
+
+medicine_df = pd.read_csv('Data/medicine-filtered.csv')
+def similar_medicine_corpus(inputWord):
+    medicine_corpus = list(medicine_df['medicineName'])
+    molecule_corpus = list(medicine_df['moleculeName'])
+    similarWords = difflib.get_close_matches(inputWord, medicine_corpus + molecule_corpus,5)
+    return similarWords
+diagnosis_df = pd.read_csv('Data/diagnostic_test.csv')
+def similar_diagnostictest_corpus(inputWord):
+    diagnosis_corpus = list(diagnosis_df['diagnostic_test_name'])
+    similarWords = difflib.get_close_matches(inputWord, diagnosis_corpus,5)
+    return similarWords

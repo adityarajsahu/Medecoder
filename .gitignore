@@ -8,6 +8,7 @@ DigitizedPrescriptionImagePdf
 imageAnnotations
 RxPrescriptions
 customerUploadedPrescriptions
+staticfiles
 
 
 # Byte-compiled / optimized / DLL files

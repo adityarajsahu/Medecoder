@@ -7,3 +7,4 @@ python-decouple==3.6
 img2pdf==0.4.4
 fpdf==1.7.2
 twilio==7.16.1
+cdifflib==1.2.6
