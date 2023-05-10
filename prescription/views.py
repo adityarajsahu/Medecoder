@@ -58,7 +58,7 @@ def uploadPrescription(request):
                     flagItem = prescriptionList[i]
                     break
             
-            # print(flagItem)
+            print(flagItem, '------------->')
             if flag:
                 # print("asuchi")
                 obj.annotation = convertJson((str(obj.image).split("/"))[1],flagItem.annotation)

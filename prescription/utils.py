@@ -45,6 +45,8 @@ def convert(aws_response, image_path, image_name):
     }
     for extracted_data in aws_response["Blocks"]:
         if extracted_data["BlockType"] == "LINE":
+            similar_words = similar_medicine_corpus(extracted_data["Text"])
+            # similar_words.append(str(extracted_data["Text"]))
             new_dict = {
                 "shape_attributes": {
                     "name": "rect",
@@ -55,10 +57,13 @@ def convert(aws_response, image_path, image_name):
                 },
                 "region_attributes": {
                     "text": remove_single_quote(extracted_data["Text"]),
-                    "confidence": extracted_data["Confidence"]
-                }
+                    "confidence": extracted_data["Confidence"],
+                },
+                "similar_word" : similar_words
             }
             formatted_json[url]["regions"].append(new_dict)
+            # x = extracted_data["Text"]
+            # print(x, similar_medicine_corpus(x), 'Similar Words ---------------->')
     return formatted_json
 
 def CustomerConvert(aws_response, image_path, image_name):
@@ -154,7 +159,6 @@ def isSimilarImage(img1,img2):
     return True if hash1 - hash2 == 0 else False
 
 def convertJson(filename, json_response):
-    # print(json_response)
     url1 = list(json_response.keys())[0]
     new_url = "/uploadedPrescriptions/{}/-1".format(filename)
     json_response[new_url] = json_response.pop(str(url1))
@@ -227,13 +231,30 @@ import pandas as pd
 import difflib
 
 medicine_df = pd.read_csv('Data/medicine-filtered.csv')
+medicine_corpus = list(medicine_df['medicineName'])
+molecule_corpus = list(medicine_df['moleculeName'])
+
 def similar_medicine_corpus(inputWord):
-    medicine_corpus = list(medicine_df['medicineName'])
-    molecule_corpus = list(medicine_df['moleculeName'])
     similarWords = difflib.get_close_matches(inputWord, medicine_corpus + molecule_corpus,5)
     return similarWords
+
 diagnosis_df = pd.read_csv('Data/diagnostic_test.csv')
+diagnosis_corpus = list(diagnosis_df['diagnostic_test_name'])
+
 def similar_diagnostictest_corpus(inputWord):
-    diagnosis_corpus = list(diagnosis_df['diagnostic_test_name'])
     similarWords = difflib.get_close_matches(inputWord, diagnosis_corpus,5)
     return similarWords
+
+
+df2 = pd.read_csv('Data/sct2_Description_Full-en_INT_20230331.txt', delimiter = '\t')
+df2 = df2.applymap(lambda s: s.lower() if type(s) == str else s)
+def snowmedCTSuggestions(inputWord):
+    name = inputWord.lower()
+    conceptId = df2[df2['term'] == name]['conceptId']
+    conceptId = conceptId.to_list()
+    x = conceptId[0]
+    resultSet = set()
+    for word in df2[df2['conceptId'] == x]['term'].to_list():
+        if ',' not in word:
+            resultSet.add(word.lower())
+    return resultSet

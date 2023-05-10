@@ -1,0 +1,129 @@
+{
+  "/uploadedPrescriptions/Screenshot_2023-04-25_at_10.51.37_PM_FBxJccY.png/-1": {
+    "filename": "/uploadedPrescriptions/Screenshot_2023-04-25_at_10.51.37_PM_FBxJccY.png/",
+    "size": -1,
+    "regions": [
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 113,
+          "y": 23,
+          "width": 74,
+          "height": 23
+        },
+        "region_attributes": {
+          "text": "admin",
+          "confidence": 99.90379333496094
+        },
+        "similar_word": ["admin", "abc", "def", "asvs"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 573,
+          "y": 68,
+          "width": 23,
+          "height": 36
+        },
+        "region_attributes": { "text": "U", "confidence": 99.3910140991211 },
+        "similar_word": ["ghi", "jkl"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 29,
+          "y": 191,
+          "width": 30,
+          "height": 22
+        },
+        "region_attributes": { "text": "olil", "confidence": 41.31349182128906 },
+        "similar_word": ["mno", "pqr"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 98,
+          "y": 195,
+          "width": 133,
+          "height": 23
+        },
+        "region_attributes": {
+          "text": "Dashboard",
+          "confidence": 99.82056427001953
+        },
+        "similar_word": ["stw"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 98,
+          "y": 293,
+          "width": 87,
+          "height": 28
+        },
+        "region_attributes": {
+          "text": "Upload",
+          "confidence": 99.9627914428711
+        },
+        "similar_word": ["xyz", "hellp"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 97,
+          "y": 391,
+          "width": 217,
+          "height": 28
+        },
+        "region_attributes": {
+          "text": "View Prescription",
+          "confidence": 99.86947631835938
+        },
+        "similar_word": ["xyz", "hello"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 96,
+          "y": 489,
+          "width": 111,
+          "height": 28
+        },
+        "region_attributes": {
+          "text": "Approval",
+          "confidence": 99.95552062988281
+        },
+        "similar_word": ["ascse"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 97,
+          "y": 587,
+          "width": 277,
+          "height": 28
+        },
+        "region_attributes": {
+          "text": "Customer Prescription",
+          "confidence": 99.91390991210938
+        },
+        "similar_word": []
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 127,
+          "y": 706,
+          "width": 225,
+          "height": 29
+        },
+        "region_attributes": {
+          "text": "Github Repository",
+          "confidence": 99.8395767211914
+        }
+      }
+    ],
+    "file_attributes": {}
+  }
+}
+

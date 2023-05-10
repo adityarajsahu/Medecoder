@@ -932,6 +932,8 @@ function import_coco_annotations_from_json(data_str) {
 }
 
 function import_annotations_from_json(data_str) {
+  window.our_data = JSON.parse(data_str)
+  console.log("data string", data_str)
   return new Promise( function(ok_callback, err_callback) {
     if (data_str === '' || typeof(data_str) === 'undefined') {
       return;
@@ -970,6 +972,7 @@ function import_annotations_from_json(data_str) {
       var regions = d[img_id].regions;
       for ( var i in regions ) {
         var region_i = new file_region();
+        
         for ( var sid in regions[i].shape_attributes ) {
           region_i.shape_attributes[sid] = regions[i].shape_attributes[sid];
         }
@@ -1846,6 +1849,7 @@ function _via_reg_canvas_mousedown_handler(e) {
 //  - new region drawing (including polygon)
 //  - moving/resizing/select/unselect existing region
 function _via_reg_canvas_mouseup_handler(e) {
+  console.log("clicked")
   e.stopPropagation();
   _via_click_x1 = e.offsetX; _via_click_y1 = e.offsetY;
 
@@ -1854,6 +1858,7 @@ function _via_reg_canvas_mouseup_handler(e) {
 
   // indicates that user has finished moving a region
   if ( _via_is_user_moving_region ) {
+    console.log("checkpoint 1")
     _via_is_user_moving_region = false;
     _via_reg_canvas.style.cursor = "default";
 
@@ -1862,9 +1867,11 @@ function _via_reg_canvas_mouseup_handler(e) {
 
     if (Math.abs(move_x) > VIA_MOUSE_CLICK_TOL ||
         Math.abs(move_y) > VIA_MOUSE_CLICK_TOL) {
+          console.log("checkpoint 2")
       // move all selected regions
       _via_move_selected_regions(move_x, move_y);
     } else {
+      console.log("checkpoint 3")
       // indicates a user click on an already selected region
       // this could indicate the user's intention to select another
       // nested region within this region
@@ -1881,12 +1888,14 @@ function _via_reg_canvas_mouseup_handler(e) {
         _via_is_user_moving_region = false;
 
         // de-select all other regions if the user has not pressed Shift
+        console.log("this must be executed")
         if ( !e.shiftKey ) {
           toggle_all_regions_selection(false);
         }
         set_region_select_state(nested_region_id, true);
         annotation_editor_show();
       } else {
+        console.log("checkpoint 4")
         // user clicking inside an already selected region
         // indicates that the user intends to draw a nested region
         toggle_all_regions_selection(false);
@@ -1929,9 +1938,10 @@ function _via_reg_canvas_mouseup_handler(e) {
     _via_reg_canvas.focus();
     return;
   }
-
+  console.log("checkpoint 5")
   // indicates that user has finished resizing a region
   if ( _via_is_user_resizing_region ) {
+    console.log("checkpoint 6")
     // _via_click(x0,y0) to _via_click(x1,y1)
     _via_is_user_resizing_region = false;
     _via_reg_canvas.style.cursor = "default";
@@ -2053,6 +2063,7 @@ function _via_reg_canvas_mouseup_handler(e) {
           }
         }
       } else {
+        console.log("checkpoint 7")
         // update coordinate of vertex
         var imx = Math.round(_via_current_x * _via_canvas_scale);
         var imy = Math.round(_via_current_y * _via_canvas_scale);
@@ -2067,12 +2078,14 @@ function _via_reg_canvas_mouseup_handler(e) {
     _via_reg_canvas.focus();
     return;
   }
-
+  console.log("checkpoint 8")
   // denotes a single click (= mouse down + mouse up)
   if ( click_dx < VIA_MOUSE_CLICK_TOL ||
        click_dy < VIA_MOUSE_CLICK_TOL ) {
+        console.log("checkpoint 9")
     // if user is already drawing polygon, then each click adds a new point
     if ( _via_is_user_drawing_polygon ) {
+      console.log("checkpoint 10")
       var canvas_x0 = Math.round(_via_click_x1);
       var canvas_y0 = Math.round(_via_click_y1);
       var n = _via_canvas_regions[_via_current_polygon_region_id].shape_attributes['all_points_x'].length;
@@ -2080,19 +2093,38 @@ function _via_reg_canvas_mouseup_handler(e) {
       var last_y0 = _via_canvas_regions[_via_current_polygon_region_id].shape_attributes['all_points_y'][n-1];
       // discard if the click was on the last vertex
       if ( canvas_x0 !== last_x0 || canvas_y0 !== last_y0 ) {
+        console.log("checkpoint 11")
         // user clicked on a new polygon point
         _via_canvas_regions[_via_current_polygon_region_id].shape_attributes['all_points_x'].push(canvas_x0);
         _via_canvas_regions[_via_current_polygon_region_id].shape_attributes['all_points_y'].push(canvas_y0);
       }
     } else {
+      console.log("checkpoint 12")
       var region_id = is_inside_region(_via_click_x0, _via_click_y0);
       if ( region_id >= 0 ) {
+        console.log("checkpoint 13")
         // first click selects region
         _via_user_sel_region_id     = region_id;
         _via_is_region_selected     = true;
         _via_is_user_moving_region  = false;
         _via_is_user_drawing_region = false;
-
+        console.log("selected region id", _via_user_sel_region_id)
+        let words = our_data[Object.keys(our_data)[0]].regions[_via_user_sel_region_id]['similar_word']
+        console.log(words)
+        let selectTag = document.getElementById('similarWords')
+        selectTag.style.display = 'block'
+        selectTag.innerHTML = ''
+        console.log(selectTag)
+        if(!words.length){
+          selectTag.style.display = 'none'
+        }
+        for(let word in words){
+          let newOption = document.createElement('option');
+          let optionText = document.createTextNode(words[word]);
+          newOption.appendChild(optionText);
+          newOption.setAttribute('value',words[word]);
+          selectTag.appendChild(newOption)
+        }
         // de-select all other regions if the user has not pressed Shift
         if ( !e.shiftKey ) {
           annotation_editor_clear_row_highlight();
@@ -2135,13 +2167,20 @@ function _via_reg_canvas_mouseup_handler(e) {
 
         show_message('Region selected. If you intended to draw a region, click again inside the selected region to start drawing a region.')
       } else {
+        console.log("checkpoint 14")
         if ( _via_is_user_drawing_region ) {
+          console.log("checkpoint 15")
           // clear all region selection
           _via_is_user_drawing_region = false;
           _via_is_region_selected     = false;
           toggle_all_regions_selection(false);
           annotation_editor_hide();
+          let selectTag = document.getElementById('similarWords')
+          selectTag.style.display = 'block'
+          selectTag.innerHTML = ''
+          selectTag.style.display = 'none'
         } else {
+          console.log("checkpoint 16")
           switch (_via_current_shape) {
           case VIA_REGION_SHAPE.POLYLINE: // handled by case for POLYGON
           case VIA_REGION_SHAPE.POLYGON:
