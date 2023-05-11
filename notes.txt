@@ -1,2 +1,2 @@
-_via_reg_canvas_mouseup_handler
-_via_user_sel_region_id
+annotation_editor_update_region_metadata
+_via_img_metadata['upasvdaw'].regions[region_id].region_attributes[attr_id]

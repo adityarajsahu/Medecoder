@@ -6,7 +6,7 @@ import json
 from .utils import viewAnnotation, scrapeMedicineImage, sendTextWhatsapp
 
 import boto3
-from .utils import convert,calculateConfidence,isSimilarImage,convertJson,CustomerConvert
+from .utils import convert,calculateConfidence,isSimilarImage,convertJson,CustomerConvert, similar_medicine_corpus
 from decouple import config
 from PIL import Image
 import img2pdf
@@ -347,6 +347,9 @@ def addAnnotation(request, prescription_id):
     annotations = request.POST['annotation']
     annotations = json.loads(annotations)
     prescription.annotation = annotations
+    
+    for data in annotations[list(annotations.keys())[0]]['regions']:
+        data['similar_word'] = similar_medicine_corpus(data['region_attributes']['text'])
     prescription.save()
     return JsonResponse({"abc":"dad"})
 

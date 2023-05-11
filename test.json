@@ -1,129 +1,227 @@
 {
-  "/uploadedPrescriptions/Screenshot_2023-04-25_at_10.51.37_PM_FBxJccY.png/-1": {
-    "filename": "/uploadedPrescriptions/Screenshot_2023-04-25_at_10.51.37_PM_FBxJccY.png/",
+  "/uploadedPrescriptions/pres.jpg/-1": {
+    "filename": "/uploadedPrescriptions/pres.jpg/",
     "size": -1,
     "regions": [
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 113,
-          "y": 23,
-          "width": 74,
-          "height": 23
+          "x": 14,
+          "y": 4,
+          "width": 338,
+          "height": 71
         },
         "region_attributes": {
-          "text": "admin",
-          "confidence": 99.90379333496094
+          "text": "Name: Lulita Alwarez",
+          "confidence": 74.84834289550781
         },
-        "similar_word": ["admin", "abc", "def", "asvs"]
+        "similar_word": ["Name: Lulita Alwarez"]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 573,
-          "y": 68,
+          "x": 14,
+          "y": 47,
+          "width": 489,
+          "height": 64
+        },
+        "region_attributes": {
+          "text": "Address: Bagong slog Paeig City",
+          "confidence": 71.55220794677734
+        },
+        "similar_word": ["Address: Bagong slog Paeig City"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 14,
+          "y": 95,
+          "width": 196,
+          "height": 38
+        },
+        "region_attributes": {
+          "text": "Age: 39 Sex:",
+          "confidence": 98.8341064453125
+        },
+        "similar_word": ["Age: 39 Sex:"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 256,
+          "y": 95,
           "width": 23,
-          "height": 36
+          "height": 39
         },
-        "region_attributes": { "text": "U", "confidence": 99.3910140991211 },
-        "similar_word": ["ghi", "jkl"]
+        "region_attributes": { "text": "F", "confidence": 99.46910095214844 },
+        "similar_word": ["F "]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 29,
-          "y": 191,
-          "width": 30,
-          "height": 22
-        },
-        "region_attributes": { "text": "olil", "confidence": 41.31349182128906 },
-        "similar_word": ["mno", "pqr"]
-      },
-      {
-        "shape_attributes": {
-          "name": "rect",
-          "x": 98,
-          "y": 195,
-          "width": 133,
-          "height": 23
+          "x": 340,
+          "y": 93,
+          "width": 206,
+          "height": 40
         },
         "region_attributes": {
-          "text": "Dashboard",
-          "confidence": 99.82056427001953
+          "text": "Date: 2-5-13",
+          "confidence": 95.15058135986328
         },
-        "similar_word": ["stw"]
+        "similar_word": ["Date: 2-5-13"]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 98,
-          "y": 293,
-          "width": 87,
-          "height": 28
+          "x": 21,
+          "y": 142,
+          "width": 41,
+          "height": 40
+        },
+        "region_attributes": { "text": "Rx", "confidence": 67.49097442626953 },
+        "similar_word": ["Rxn ", "Rox ", "Rox ", "Rfx ", "Rfx "]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 187,
+          "y": 169,
+          "width": 292,
+          "height": 62
         },
         "region_attributes": {
-          "text": "Upload",
-          "confidence": 99.9627914428711
+          "text": "FeSO4 tab # 30",
+          "confidence": 92.4600830078125
         },
-        "similar_word": ["xyz", "hellp"]
+        "similar_word": ["FeSO4 tab # 30"]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 97,
-          "y": 391,
-          "width": 217,
-          "height": 28
+          "x": 81,
+          "y": 244,
+          "width": 214,
+          "height": 80
         },
         "region_attributes": {
-          "text": "View Prescription",
-          "confidence": 99.86947631835938
+          "text": "Sig: A.D.",
+          "confidence": 85.3110580444336
         },
-        "similar_word": ["xyz", "hello"]
+        "similar_word": ["Sig: A.D."]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 96,
-          "y": 489,
-          "width": 111,
-          "height": 28
+          "x": 193,
+          "y": 353,
+          "width": 319,
+          "height": 46
         },
         "region_attributes": {
-          "text": "Approval",
-          "confidence": 99.95552062988281
+          "text": "Ascorbic acid # 30",
+          "confidence": 93.35757446289062
         },
-        "similar_word": ["ascse"]
+        "similar_word": ["ascorbic acid"]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 97,
-          "y": 587,
-          "width": 277,
-          "height": 28
+          "x": 284,
+          "y": 394,
+          "width": 138,
+          "height": 38
         },
         "region_attributes": {
-          "text": "Customer Prescription",
-          "confidence": 99.91390991210938
+          "text": "500mg tab",
+          "confidence": 74.57902526855469
         },
-        "similar_word": []
+        "similar_word": ["500mg tab"]
       },
       {
         "shape_attributes": {
           "name": "rect",
-          "x": 127,
-          "y": 706,
+          "x": 83,
+          "y": 428,
+          "width": 308,
+          "height": 66
+        },
+        "region_attributes": {
+          "text": "Sig: ance a day",
+          "confidence": 84.13427734375
+        },
+        "similar_word": ["Sig: ance a day"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 238,
+          "y": 455,
+          "width": 329,
+          "height": 75
+        },
+        "region_attributes": {
+          "text": "Physicians Sig. Idelacing",
+          "confidence": 78.199951171875
+        },
+        "similar_word": ["Physicians Sig. Idelacing"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 238,
+          "y": 507,
+          "width": 75,
+          "height": 19
+        },
+        "region_attributes": {
+          "text": "Lic. No.",
+          "confidence": 94.48849487304688
+        },
+        "similar_word": ["Lic. No."]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 351,
+          "y": 502,
+          "width": 84,
+          "height": 30
+        },
+        "region_attributes": {
+          "text": "12345",
+          "confidence": 94.42709350585938
+        },
+        "similar_word": ["123 ", "123 ", "123 "]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 238,
+          "y": 530,
           "width": 225,
-          "height": 29
+          "height": 34
         },
         "region_attributes": {
-          "text": "Github Repository",
-          "confidence": 99.8395767211914
-        }
+          "text": "PTR No 1234567",
+          "confidence": 90.49457550048828
+        },
+        "similar_word": ["PTR No 1234567"]
+      },
+      {
+        "shape_attributes": {
+          "name": "rect",
+          "x": 238,
+          "y": 558,
+          "width": 63,
+          "height": 19
+        },
+        "region_attributes": {
+          "text": "S2 No.",
+          "confidence": 99.76040649414062
+        },
+        "similar_word": ["S2 No."]
       }
     ],
     "file_attributes": {}
   }
 }
-

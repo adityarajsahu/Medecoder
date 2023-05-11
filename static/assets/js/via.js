@@ -2110,11 +2110,10 @@ function _via_reg_canvas_mouseup_handler(e) {
         _via_is_user_drawing_region = false;
         console.log("selected region id", _via_user_sel_region_id)
         let words = our_data[Object.keys(our_data)[0]].regions[_via_user_sel_region_id]['similar_word']
-        console.log(words)
+        console.log(words, '----------->')
         let selectTag = document.getElementById('similarWords')
         selectTag.style.display = 'block'
         selectTag.innerHTML = ''
-        console.log(selectTag)
         if(!words.length){
           selectTag.style.display = 'none'
         }
@@ -6946,14 +6945,13 @@ function annotation_editor_on_metadata_focus(p) {
 function annotation_editor_on_metadata_update(p) {
   var pid       = annotation_editor_extract_html_id_components(p.id);
   var img_id    = _via_image_id;
-
+  console.log(p, '-------->')
   var img_index_list = [ _via_image_index ];
   var region_id = pid.row_id;
   if ( _via_display_area_content_name === VIA_DISPLAY_AREA_CONTENT_NAME.IMAGE_GRID ) {
     img_index_list = _via_image_grid_selected_img_index_list.slice(0);
     region_id = -1; // this flag denotes that we want to update all regions
   }
-
   if ( _via_metadata_being_updated === 'file' ) {
     annotation_editor_update_file_metadata(img_index_list, pid.attr_id, p.value, p.checked).then( function(update_count) {
       annotation_editor_on_metadata_update_done('file', pid.attr_id, update_count);
@@ -6965,6 +6963,7 @@ function annotation_editor_on_metadata_update(p) {
   }
 
   if ( _via_metadata_being_updated === 'region' ) {
+    console.log(img_index_list, region_id, pid.attr_id, p.value, p.checked)
     annotation_editor_update_region_metadata(img_index_list, region_id, pid.attr_id, p.value, p.checked).then( function(update_count) {
       annotation_editor_on_metadata_update_done('region', pid.attr_id, update_count);
     }, function(err) {
@@ -10198,4 +10197,12 @@ function polygon_to_bbox(pts) {
     }
   }
   return [xmin, ymin, xmax-xmin, ymax-ymin];
+}
+
+function update_text(){
+  // console.log(document.getElementById('similarWords').value)
+  var selectedWord = document.getElementById('similarWords').value
+  // console.log(_via_img_metadata[_via_image_id].regions[_via_user_sel_region_id].region_attributes['text'])
+  _via_img_metadata[_via_image_id].regions[_via_user_sel_region_id].region_attributes['text'] = selectedWord
+  _via_show_img(0)
 }

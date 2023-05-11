@@ -47,6 +47,9 @@ def convert(aws_response, image_path, image_name):
         if extracted_data["BlockType"] == "LINE":
             similar_words = similar_medicine_corpus(extracted_data["Text"])
             # similar_words.append(str(extracted_data["Text"]))
+            similar_words = [x.replace("'","") for x in similar_words]
+            if len(similar_words) == 0:
+                similar_words.append(extracted_data["Text"].replace("'",""))#.replace
             new_dict = {
                 "shape_attributes": {
                     "name": "rect",

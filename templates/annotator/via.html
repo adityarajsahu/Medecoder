@@ -433,7 +433,7 @@
 
         <div>
           Similar Words
-          <select id="similarWords" name="similarWords"></select>
+          <select id="similarWords" name="similarWords" onchange="update_text()"></select>
         </div>
       </div> <!-- end of leftsidebar -->
 
@@ -788,6 +788,7 @@ POSSIBILITY OF SUCH DAMAGE.
               import_annotations_from_json(annot)
             }, 5000)
         })
+
     </script>
   </body>
 </html>
